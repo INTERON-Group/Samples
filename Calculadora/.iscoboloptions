@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.14" class="java.beans.XMLDecoder">
+ <object class="com.iscobol.plugins.editor.util.ProjectSettingList" id="ProjectSettingList0">
+  <null/>
+  <void id="LinkedHashMap0" property="modes">
+   <void id="SettingMode0" method="get">
+    <string>Default</string>
+    <void id="LinkedHashMap1" property="properties">
+     <void method="put">
+      <string>sourcedir</string>
+      <string>source</string>
+     </void>
+     <void method="put">
+      <string>screendir</string>
+      <string>screen</string>
+     </void>
+     <void method="put">
+      <string>fddir</string>
+      <string>fd</string>
+     </void>
+     <void method="put">
+      <string>resourcesdir</string>
+      <string>resources</string>
+     </void>
+     <void method="put">
+      <string>logsdir</string>
+      <string>logs</string>
+     </void>
+     <void method="put">
+      <string>datadir</string>
+      <string>data</string>
+     </void>
+     <void method="put">
+      <string>fdslcopydir</string>
+      <string>fdsl</string>
+     </void>
+     <void method="put">
+      <string>screencopydir</string>
+      <string>screenpgm</string>
+     </void>
+     <void method="put">
+      <string>html_androiddir</string>
+      <string>html</string>
+     </void>
+     <void method="put">
+      <string>webxml_file</string>
+      <string></string>
+     </void>
+     <void method="put">
+      <string>iscobol.checkfileopt</string>
+      <string>___iscobol.option.true</string>
+     </void>
+     <void method="put">
+      <string>keep_ss</string>
+      <string>true</string>
+     </void>
+     <void method="put">
+      <string>easydb.Generic</string>
+      <string>___iscobol.option.true</string>
+     </void>
+     <void method="put">
+      <string>iscobol.classpath</string>
+      <string></string>
+     </void>
+     <void method="put">
+      <string>iscobol.prjinstallediscobol</string>
+      <string>0</string>
+     </void>
+    </void>
+    <void property="properties">
+     <object idref="LinkedHashMap1"/>
+    </void>
+   </void>
+   <void id="SettingMode1" method="get">
+    <string>Release</string>
+    <void id="LinkedHashMap2" property="properties">
+     <void method="put">
+      <string>-eo=</string>
+      <string>errs</string>
+     </void>
+     <void method="put">
+      <string>-esme=</string>
+      <string>100</string>
+     </void>
+     <void method="put">
+      <string>-lo=</string>
+      <string>list</string>
+     </void>
+     <void method="put">
+      <string>-od=</string>
+      <string>output</string>
+     </void>
+     <void method="put">
+      <string>-sp=</string>
+      <string>cpy;screenpgm;fdsl</string>
+     </void>
+     <void method="put">
+      <string>-sl</string>
+      <string>___iscobol.option.true</string>
+     </void>
+    </void>
+    <void property="properties">
+     <object idref="LinkedHashMap2"/>
+    </void>
+   </void>
+   <void id="SettingMode2" method="get">
+    <string>Debug</string>
+    <void id="LinkedHashMap3" property="properties">
+     <void method="put">
+      <string>-d</string>
+      <string>___iscobol.option.true</string>
+     </void>
+     <void method="put">
+      <string>-dx</string>
+      <string>___iscobol.option.true</string>
+     </void>
+     <void method="put">
+      <string>-eo=</string>
+      <string>errs</string>
+     </void>
+     <void method="put">
+      <string>-esme=</string>
+      <string>100</string>
+     </void>
+     <void method="put">
+      <string>-lo=</string>
+      <string>list</string>
+     </void>
+     <void method="put">
+      <string>-od=</string>
+      <string>output</string>
+     </void>
+     <void method="put">
+      <string>-sp=</string>
+      <string>cpy;screenpgm;fdsl</string>
+     </void>
+     <void method="put">
+      <string>-sl</string>
+      <string>___iscobol.option.true</string>
+     </void>
+    </void>
+    <void property="properties">
+     <object idref="LinkedHashMap3"/>
+    </void>
+   </void>
+  </void>
+  <void property="runtimeCurrentMode">
+   <string>Run</string>
+  </void>
+  <void id="LinkedHashMap4" property="runtimeModes">
+   <void id="SettingMode3" method="get">
+    <string>Run</string>
+    <void id="LinkedHashMap5" property="properties">
+     <void method="put">
+      <string>iscobol.prog.sysprops</string>
+      <string>-XX:ErrorFile=../logs/java_error%p.log</string>
+     </void>
+     <void method="put">
+      <string>iscobol.prog.lafopt</string>
+      <string></string>
+     </void>
+     <void method="put">
+      <string>iscobol.prog.conffile</string>
+      <string></string>
+     </void>
+     <void method="put">
+      <string>iscobol.prog.args</string>
+      <string></string>
+     </void>
+     <void method="put">
+      <string>iscobol.prog.workdir</string>
+      <string>output</string>
+     </void>
+    </void>
+    <void property="properties">
+     <object idref="LinkedHashMap5"/>
+    </void>
+   </void>
+  </void>
+ </object>
+</java>

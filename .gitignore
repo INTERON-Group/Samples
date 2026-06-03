@@ -1,0 +1,18 @@
+# Arquivos compilados pelo isCOBOL
+Calculadora/cpy/
+Calculadora/errs/
+Calculadora/fdsl/
+Calculadora/html/
+Calculadora/list/
+Calculadora/logs/
+Calculadora/outp/
+
+# Arquivos binários gerados
+*.class
+*.jar
+*.lsr
+*.idy
+
+# Configurações locais da IDE
+.settings/
+*.prefs
