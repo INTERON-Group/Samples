@@ -1,0 +1,210 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+copy "isfilesys.def".
+
+78  parseefd-parse                               value 0.
+78  parseefd-get-key-info                        value 1.
+78  parseefd-get-cond-info                       value 2.
+78  parseefd-get-field-info                      value 3.
+78  parseefd-test-conditions                     value 4.
+78  parseefd-release                             value 9.
+
+78  parseefd-flag-include-comments               value 1.
+78  parseefd-flag-include-999                    value 2.
+78  parseefd-flag-exclude-arrays                 value 4.
+78  parseefd-flag-deep-first                     value 8.
+
+78  parseefd-numedited                           value 0.  | Numeric Edited
+78  parseefd-numunsigned                         value 1.  | Unsigned numeric
+78  parseefd-numsignsep                          value 2.  | Signed numeric (trail sep)
+78  parseefd-numsigned                           value 3.  | Signed numeric (trail comb)
+78  parseefd-numseplead                          value 4.  | Signed numeric (lead sep)
+78  parseefd-numleading                          value 5.  | Signed numeric (lead comb)
+78  parseefd-compsigned                          value 6.  | Signed computational
+78  parseefd-compunsigned                        value 7.  | Unsigned computational
+78  parseefd-packedpositive                      value 8.  | Positive packed-decimal
+78  parseefd-packedsigned                        value 9.  | Signed packed-decimal
+78  parseefd-packedunsigned                      value 10. | Computational-6
+78  parseefd-binarysigned                        value 11. | Signed binary
+78  parseefd-binaryunsigned                      value 12. | Unsigned binary
+78  parseefd-nativesigned                        value 13. | Signed native-order binary
+78  parseefd-nativeunsigned                      value 14. | Unsigned native-order binary
+78  parseefd-alphanum                            value 16. | Alphanumeric
+78  parseefd-justan                              value 17. | Alphanumeric (justified)
+78  parseefd-alphbetic                           value 18. | Alphabetic
+78  parseefd-justalpha                           value 19. | Alphabetic (justified)
+78  parseefd-alphaedited                         value 20. | Alphanumeric Edited
+78  parseefd-group                               value 22. | Group
+78  parseefd-flt                                 value 23. | Float or Double
+78  parseefd-nat-type                            value 24. | National
+78  parseefd-justnat                             value 25. | National (justified)
+78  parseefd-natedited                           value 26. | National edited
+78  parseefd-wide-type                           value 27. | Wide
+78  parseefd-justwide                            value 28. | Wide (justified)
+78  parseefd-wideedited                          value 29. | Wide edited
+78  parseefd-nativevsigned                       value 30. | Signed var-len native-order binary
+78  parseefd-nativevunsigned                     value 31. | Unsigned var-len native-order binary
+
+78  parseefd-userdate                            value 1.
+78  parseefd-userbinary                          value 2.
+78  parseefd-uservarlength                       value 3.
+78  parseefd-secondarytable                      value 16.
+
+78  parseefd-maxnumkeyfields                     value 16.
+
+01  parseefd-description.
+    03  parseefd-header-line.
+        05  parseefd-version                     pic x comp-n.
+        05  parseefd-select-name                 pic x(30).
+        05  parseefd-filename                    pic x(30).
+        05  parseefd-filetype                    pic x comp-n.
+            88  parseefd-sequential-file         value 4.
+            88  parseefd-relative-file           value 8.
+            88  parseefd-indexed-file            value 12.
+    03  parseefd-record-line.
+        05  parseefd-max-rec-size                pic x(4) comp-n.
+        05  parseefd-min-rec-size                pic x(4) comp-n.
+        05  parseefd-num-keys                    pic x comp-n.
+    03  parseefd-condition-line.
+        05  parseefd-number-conditions           pic xx comp-n.
+    03  parseefd-fields-line.
+        05  parseefd-number-fields               pic x(4) comp-n.
+    03  parseefd-v6-information.
+        05  parseefd-cobol-trigger               pic x(100).
+        05  parseefd-compile-line.
+            07  parseefd-sign-flag               pic x(2) comp-n.
+                88  parseefd-sign-acu            value 0.
+                88  parseefd-sign-ibm            value 4.
+                88  parseefd-sign-mf             value 8.
+                88  parseefd-sign-ncr            value 20.
+                88  parseefd-sign-vax            value 36.
+                88  parseefd-sign-mbp            value 72.
+                88  parseefd-sign-rea            value 128.
+            07  parseefd-max-digits              pic x(2) comp-n.
+                88  parseefd-18-digits           value 40.
+                88  parseefd-31-digits           value 68.
+            07  parseefd-pgm-period              pic x.
+            07  parseefd-pgm-comma               pic x.
+            07  parseefd-encoding                pic x(2) comp-n.
+                88  parseefd_ascii               value 0.
+                88  parseefd_wide                value 1.
+                88  parseefd_utf-8               value 2.
+                88  parseefd_utf-16-le           value 3.
+                88  parseefd_utf-16-be           value 5.
+                88  parseefd_utf-32-le           value 4.
+                88  parseefd_utf-32-be           value 6.
+
+01  parseefd-key-description.
+    03  parseefd-number-segments                 pic x comp-n.
+    03  parseefd-dup-flag                        pic x comp-n.
+        88  parseefd-allow-duplicates            value 1 false 0.
+    03  parseefd-segment-description
+            occurs max-segs times
+            indexed by parseefd-seg-idx.
+        05  parseefd-segment-length              pic x comp-n.
+        05  parseefd-segment-offset              pic x(4) comp-n.
+    03  parseefd-number-key-fields               pic x comp-n.
+    03  parseefd-key-fields
+            occurs parseefd-maxnumkeyfields times
+            indexed by parseefd-key-field-idx.
+        05  parseefd-key-field-num               pic xx comp-n.
+
+01  parseefd-condition-description.
+    03  parseefd-condition-type                  pic x comp-n.
+        88  parseefd-equal-condition             value 1.
+        88  parseefd-and-condition               value 2.
+        88  parseefd-other-condition             value 3.
+        88  parseefd-gt-condition                value 4.
+        88  parseefd-ge-condition                value 5.
+        88  parseefd-lt-condition                value 6.
+        88  parseefd-le-condition                value 7.
+        88  parseefd-ne-condition                value 8.
+        88  parseefd-or-condition                value 9.
+        88  parseefd-comparison-cond             values 1, 4 through 8.
+    03  parseefd-condition-flag                  pic x.
+        88  parseefd-true-condition              value 'Y' false 'N'.
+    03  parseefd-comparison-conditions.
+        05  parseefd-comp-fieldnum               pic xx comp-n.
+        05  parseefd-comp-fieldname              pic x(30).
+        05  parseefd-comp-field-val              pic x(50).
+    03  parseefd-other-conditions
+                redefines parseefd-comparison-conditions.
+        05  parseefd-other-fieldnum              pic xx comp-n.
+        05  parseefd-other-fieldname             pic x(30).
+    03  parseefd-and-or-conditions
+                redefines parseefd-comparison-conditions.
+        05  parseefd-condition-1                 pic xx comp-n.
+        05  parseefd-condition-2                 pic xx comp-n.
+    03  parseefd-condition-tablename             pic x(30).
+
+01  parseefd-field-description.
+    03  parseefd-field-offset                    pic x(4) comp-n.
+    03  parseefd-field-length                    pic x(4) comp-n.
+    03  parseefd-field-type                      pic x comp-n.
+        88  parseefd-signed-field                values parseefd-numsignsep
+                                                        parseefd-numsigned
+                                                        parseefd-numseplead
+                                                        parseefd-numleading
+                                                        parseefd-compsigned
+                                                        parseefd-packedsigned
+                                                        parseefd-binarysigned 
+                                                        parseefd-nativesigned.
+        88  parseefd-num-field                   values parseefd-numedited thru
+                                                        parseefd-nativeunsigned.
+        88  parseefd-float-field                 value  parseefd-flt.
+        88  parseefd-ascii-field                 values parseefd-alphanum thru parseefd-group.
+        88  parseefd-nat-field                   values parseefd-nat-type thru parseefd-natedited.
+        88  parseefd-wide-field                  values parseefd-wide-type thru
+                                                        parseefd-wideedited.
+    03  parseefd-field-digits                    pic x comp-n.
+    03  parseefd-field-scale                     signed-short.
+    03  parseefd-field-user-type                 pic xx comp-n.
+    03  parseefd-field-condition                 pic xx comp-n.
+    03  parseefd-field-level                     pic x comp-n.
+    03  parseefd-field-name                      pic x(30).
+    03  parseefd-field-format                    pic x(30).
+    03  parseefd-field-occurs-depth              pic x comp-n.
+    03  parseefd-field-occurs-table
+            occurs parseefd-maxnumkeyfields times
+            indexed by parseefd-field-occurs-level.
+        05  parseefd-field-occ-max-idx           pic xx comp-n.
+        05  parseefd-field-occ-this-idx          pic xx comp-n.
+    03  parseefd-field-in-key-flag               pic x.
+        88  parseefd-field-is-in-key             value 'Y' false 'N'.
+    03  parseefd-field-secondary-flag            pic x.
+        88  parseefd-field-is-secondary          value 'Y' false 'N'.
+    03  parseefd-field-hidden-flag               pic x.
+        88  parseefd-field-is-hidden             value 'Y' false 'N'.
+    03  parseefd-field-read-only-flag            pic x.
+        88  parseefd-field-is-read-only          value 'Y' false 'N'.
+    03  parseefd-field-dbtype                    pic x(32).
+    03  parseefd-field-type-description          pic x(30).
+
+01  parseefd-text-error-messages.
+    03  pic x(80).                               | no error 1.
+    03  pic x(80)                                value "Error opening EFD file".
+    03  pic x(80)                                value "Error reading EFD file".
+    03  pic x(80)                                value "EFD file Version error".
+    03  pic x(80)                                value "EFD file doesn't match indexed file".
+    03  pic x(80)                                value "Memory request size error".
+    03  pic x(80)                                value "No memory".
+    03  pic x(80)                                value "Too many key fields".
+    03  pic x(80)                                value "No EFD file has been parsed".
+    03  pic x(80)                                value "An EFD file has already been parsed".
+    03  pic x(80)                                value "Invalid key index value".
+    03  pic x(80)                                value "Invalid condition index value".
+    03  pic x(80)                                value "Invalid field index value".
+    03  pic x(80)                                value "This EFD is not for an Indexed File".
+01  parseefd-text-error-messages-array
+    redefines parseefd-text-error-messages.
+    03  parseefd-text-error-message
+        pic x(80)
+        occurs 14 times.
+
+       >>SOURCE FORMAT PREVIOUS
+      

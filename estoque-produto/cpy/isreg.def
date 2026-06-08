@@ -1,0 +1,62 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  hkey_classes_root_31                         value 1.
+
+78  hkey_classes_root                            value 2147483648.
+78  hkey_current_user                            value 2147483649.
+78  hkey_local_machine                           value 2147483650.
+78  hkey_users                                   value 2147483651.
+78  hkey_performance_data                        value 2147483652.
+78  hkey_current_config                          value 2147483653.
+78  hkey_dyn_data                                value 2147483654.
+
+78  reg_none                                     value zero.
+78  reg_sz                                       value 1.
+78  reg_expand_sz                                value 2.
+78  reg_binary                                   value 3.
+78  reg_dword                                    value 4.
+78  reg_dword_little_endian                      value 4.
+78  reg_dword_big_endian                         value 5.
+78  reg_link                                     value 6.
+78  reg_multi_sz                                 value 7.
+78  reg_resource_list                            value 8.
+78  reg_full_resource_descriptor                 value 9.
+78  reg_resource_requirements_list               value 10.
+
+01  win32-registry-value-type                    usage is unsigned-long.
+    88  type-is-reg_none                         value zero.
+    88  type-is-reg_sz                           value 1.
+    88  type-is-reg_expand_sz                    value 2.
+    88  type-is-reg_binary                       value 3.
+    88  type-is-reg_dword                        value 4.
+    88  type-is-reg_dword_little_endian          value 4.
+    88  type-is-reg_dword_big_endian             value 5.
+    88  type-is-reg_link                         value 6.
+    88  type-is-reg_multi_sz                     value 7.
+    88  type-is-reg_resource_list                value 8.
+    88  type-is-reg_full_resource_descriptor     value 9.
+    88  type-is-reg_resource_requirements_list   value 10.
+
+78  reg_option_non_volatile                      value 0.
+78  reg_option_volatile                          value 1.
+
+78  key_query_value                              value 1.
+78  key_set_value                                value 2.
+78  key_create_sub_key                           value 4.
+78  key_enumerate_sub_keys                       value 8.
+78  key_notify                                   value 16.
+78  key_create_link                              value 32.
+78  key_write                                    value 131078.
+78  key_read                                     value 131097.
+78  key_execute                                  value 131097.
+78  key_all_access                               value 983103.
+
+78  reg_created_new_key                          value 1.
+78  reg_opened_existing_key                      value 2.
+
+       >>SOURCE FORMAT PREVIOUS

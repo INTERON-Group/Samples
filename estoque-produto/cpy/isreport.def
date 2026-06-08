@@ -1,0 +1,92 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2019 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+      
+01 is-print-variable.
+    05  is-pagenum              pic 9(06) value 0.
+    05  is-pagenum-sys          pic 9(06) value 0.
+    05  is-paper-size           pic x(20)  value spaces.
+    05  is-paper-sizeint.
+        10  is-paper-width      pic 9(4)v99.
+        10  filler                 pic x  value is "|".
+        10  is-paper-height     pic 9(4)v99.
+        10  filler                 pic x  value is " ".
+    05  is-paper-header         pic x(30) value spaces.
+    05  is-paper-footer         pic x(30) value spaces.
+    05  is-paper-orientation    pic x(10).
+    05  is-paper-orientationint signed-int.
+        88  is-paper-portrait   value 1.
+        88  is-paper-landscape  value 2.
+    05  is-paper-copies         signed-int value 0.
+    05  is-paper-margin.
+        10  is-margin-left      pic 9(4)v99.
+        10  filler                 pic x  value is "|".
+        10  is-margin-right     pic 9(4)v99.
+        10  filler                 pic x  value is "|".
+        10  is-margin-top       pic 9(4)v99.
+        10  filler                 pic x  value is "|".
+        10  is-margin-bottom    pic 9(4)v99.
+        10  filler                 pic x  value is " ".
+    05  is-paper-tmp            pic 9(4)v99.
+           
+77 is-occurs-idx           pic  9(4) value 1.  
+77 is-output-format             pic x(10).          
+    
+77 report-header-print-before-page   pic 9  value  0.
+77 report-footer-print-after-page    pic 9  value  0.
+01 stat-printf.
+    05  stat-1-printf              pic x(01).
+        88  valid-printf           value "0".
+        88  end-printf             value "1".
+    05  stat-2-printf              pic x(01).
+
+01 ws-print-variable.
+    05  ptr-dev-name               pic x(256) value "printer".
+    05  ptr-dev-class              pic x(50) 
+                          value "com.iscobol.io.DynamicRelative".
+        88 ptr-dev-remote value "com.iscobol.io.RemoteRelative"
+                          false "com.iscobol.io.DynamicRelative".
+    
+    05  print-buf                  pic x(1024).
+    05  tmp-pixels                 pic 9(8) value 0.
+    05  cnt-pixels                 pic 9(8) value 0.
+    05  cnt-inpagepixels           pic 9(8) value 0.
+    05  cnt-inpagepixels-tmp       pic 9(8) value 0.
+    05  cnt-pixels-tmp             pic 9(8) value 0.
+    05  cnt-pagenum-tmp            pic 9(06) value 0.
+    05  current-height             pic 9(8) value 0.
+    05  rpt-return-value           pic 9     value 0.
+    05  high-offset                pic 9(8) value 0.
+    05  high-offset-in             pic 9(8) value 0.  
+    05  section-high-stack         pic s9(6) value 0.
+    05  ntopcolumnnum              pic 9(2)  value 1.
+    05  current-col                pic 9(2)  value 1.
+    05  detail-width               pic 9(6)  value 0.
+    05  tmp-printornot             pic 9     value 0.
+    05  sys-endprimaryfd           pic 9     value 0.
+    05  new-print-data-size        pic 9(6)  value 0.         
+    05  print-buf-size             pic 9(6)  value 0.             
+    05  print-buf-length           pic 9(6)  value 1024.        
+    05  print-buf-trail-spaces     pic 9(4)  value 0.     
+    05  print-buf-total-spaces     pic 9(4)  value 0.     
+    05  print-buf-count            pic 9(6)  value 0.            
+    05  print-buf-char             pic x.                        
+           05  new-print-data      pic x(1024).          
+01 is-html-color-buf.
+   03 is-html-foreground pic x(7).
+   03 is-html-background pic x(7).
+77 is-date-buf pic x(22).
+77 is-counter pic 9(4) comp.
+77 is-image-fullname pic x any length.
+77 is-font-fullname pic x any length.
+01 is-font-flags.
+   03 filler pic x.
+      88 is-font-bold value "y".
+   03 filler pic x.
+      88 is-font-italic value "y".
+77 is-escaped-text pic x any length.
+
+       >>SOURCE FORMAT PREVIOUS

@@ -1,0 +1,36 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  rlm-no-action                                value 0.
+78  rlm-resize-x                                 value 1.
+78  rlm-move-x                                   value 2.
+78  rlm-no-min-x                                 value 4.
+78  rlm-resize-x-any                             value rlm-resize-x + rlm-no-min-x.
+78  rlm-move-x-any                               value rlm-move-x + rlm-no-min-x.
+
+78  rlm-resize-y                                 value 16.
+78  rlm-move-y                                   value 32.
+78  rlm-no-min-y                                 value 64.
+78  rlm-resize-y-any                             value rlm-resize-y + rlm-no-min-y.
+78  rlm-move-y-any                               value rlm-move-y + rlm-no-min-y.
+
+78  rlm-resize-both                              value rlm-resize-x + rlm-resize-y.
+78  rlm-resize-both-any                          value rlm-resize-x-any + rlm-resize-y-any.
+
+78  rlm-move-both                                value rlm-move-x + rlm-move-y.
+78  rlm-move-both-any                            value rlm-move-x-any + rlm-move-y-any.
+
+77  lm-resize                                    handle of layout-manager, lm-resize.
+77  lm-scale                                     handle of layout-manager, lm-scale.
+77  lm-wrap                                      handle of layout-manager, lm-wrap.
+77  lm-responsive                                handle of layout-manager, lm-responsive.
+77  lm-zoom                                      handle of layout-manager, lm-zoom.
+
+77  custom-lm-scale                              handle of layout-manager, lm-scale "hbar=35 vbar=50 label=34".
+77  custom-lm-zoom                               handle of layout-manager, lm-zoom "hbar=35 vbar=50 label=34".
+
+       >>SOURCE FORMAT PREVIOUS

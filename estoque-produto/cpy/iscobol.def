@@ -1,0 +1,335 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+01  terminal-abilities.
+    03  terminal-name                            pic x(10).
+    03  filler                                   pic x.
+        88  has-reverse                          value "Y".
+    03  filler                                   pic x.
+        88  has-blink                            value "Y".
+    03  filler                                   pic x.
+        88  has-underline                        value "Y".
+    03  filler                                   pic x.
+        88  has-dual-intensity                   value "Y".
+    03  filler                                   pic x.
+        88  has-132-column-mode                  value "Y".
+    03  filler                                   pic x.
+        88  has-color                            value "Y".
+    03  filler                                   pic x.
+        88  has-line-drawing                     value "Y".
+    03  number-of-screen-lines                   pic 9(3).
+    03  number-of-screen-columns                 pic 9(3).
+    03  filler                                   pic x.
+        88  has-local-printer                    value "Y".
+    03  filler                                   pic x.
+        88  has-visible-attributes               value "Y".
+    03  filler                                   pic x.
+        88  has-graphical-interface              value "Y".
+    03  usable-screen-height                     pic x(2) comp-x.
+    03  usable-screen-width                      pic x(2) comp-x.
+    03  physical-screen-height                   pic x(2) comp-x.
+    03  physical-screen-width                    pic x(2) comp-x.
+    03  filler                                   pic x.
+        88  is-remote                            value "Y".
+    03  client-machine-name                      pic x(64).
+    03  filler                                   pic x.
+    03  client-user-id                           pic x(20).
+
+01  system-information.
+    03  operating-system                         pic x(10).
+        88  os-is-msdos                          value "ms-dos".
+        88  os-is-os2                            value "OS/2".
+        88  os-is-vms                            values "vms", "vax/vms".
+        88  os-is-unix                           value "Linux", "AIX", "HP-UX", "SunOS", "Solaris".
+        88  os-is-linux                          value "Linux".
+        88  os-is-aos                            value "aos/vs".
+        88  os-is-windows                        values "Windows 95", "Windows 98", "Windows Me".
+        88  os-is-win-nt                         values "Windows NT", "Windows 20", "Windows XP", "Windows Vi", "Windows 7", "WINDOWS", "Windows Se", "Windows 8", "Windows 8.", "Windows 10", "Windows 11".
+        88  os-is-win-family                     values "Windows NT", "Windows 95", "Windows 98", "Windows Me", "Windows 20", "Windows XP", "Windows Vi", "WINDOWS", "Windows 7", "Windows Se", "Windows 8", "Windows 8.", "Windows 10", "Windows 11".
+        88  os-is-amos                           value "amos".
+        88  os-is-mpe                            value "MPE/iX".
+        88  os-is-mpeix                          value "MPE/iX".
+        88  os-is-mac                            value "Mac OS", "Mac OS X".
+    03  user-id                                  pic x(12).
+    03  station-id                               pic x(12).
+    03  filler                                   pic x.
+        88  has-indexed-read-previous            value "Y".
+    03  filler                                   pic x.
+        88  has-relative-read-previous           value "Y".
+    03  filler                                   pic x.
+        88  can-test-input-status                value "Y".
+    03  filler                                   pic x.
+        88  is-multi-tasking                     value "Y".
+    03  runtime-version.
+        05  runtime-major-version                pic 99.
+        05  runtime-minor-version                pic 99.
+        05  runtime-release                      pic 99.
+    03  filler                                   pic x.
+        88  is-plugin                            value "Y".
+    03  serial-number                            pic x(20).
+    03  filler                                   pic x.
+        88  has-large-file-support               value "Y".
+    03  filler                                   pic x.
+    03  filler                                   pic x.
+        88  is-64-bit                            value "Y".
+
+78  black                                        value 1.
+78  blue                                         value 2.
+78  green                                        value 3.
+78  cyan                                         value 4.
+78  red                                          value 5.
+78  magenta                                      value 6.
+78  brown                                        value 7.
+78  white                                        value 8.
+78  dark-gray                                    value 9.
+78  bright-blue                                  value 10.
+78  bright-green                                 value 11.
+78  bright-cyan                                  value 12.
+78  bright-red                                   value 13.
+78  bright-magenta                               value 14.
+78  yellow                                       value 15.
+78  bright-white                                 value 16.
+78  bckgrnd-black                                value 32.
+78  bckgrnd-blue                                 value 64.
+78  bckgrnd-green                                value 96.
+78  bckgrnd-cyan                                 value 128.
+78  bckgrnd-red                                  value 160.
+78  bckgrnd-magenta                              value 192.
+78  bckgrnd-brown                                value 224.
+78  bckgrnd-white                                value 256.
+78  bckgrnd-dark-gray                            value 288.
+78  bckgrnd-bright-blue                          value 320.
+78  bckgrnd-bright-green                         value 352.
+78  bckgrnd-bright-cyan                          value 384.
+78  bckgrnd-bright-red                           value 416.
+78  bckgrnd-bright-magenta                       value 448.
+78  bckgrnd-yellow                               value 480.
+78  bckgrnd-bright-white                         value 512.
+78  color-reverse                                value 1024.
+78  frgrnd-low                                   value 2048.
+78  frgrnd-high                                  value 4096.
+78  color-underline                              value 8192.
+78  color-blink                                  value 16384.
+78  color-protected                              value 32768.
+78  bckgrnd-low                                  value 65536.
+78  bckgrnd-high                                 value 131072.
+78  window-bright-white                          value 131328.
+
+78  runenv-standalone                            value 1.
+78  runenv-charva                                value 2.
+78  runenv-remote-call                           value 3.
+78  runenv-thin-client                           value 4.
+78  runenv-web-client                            value 5.
+78  runenv-wd2                                   value 6.
+78  runenv-jee                                   value 7.
+78  runenv-j2ee                                  value 7.
+78  runenv-mobile                                value 8.
+78  runenv-thin-call-client                      value 9.
+78  runenv-web-call-client                       value 10.
+78  runenv-turborun                              value 11.
+
+78  cconfig-reset                                value 1.
+78  cconfig-append                               value 9.
+
+78  csys-async                                   value 1.
+78  csys-maximized                               value 4.
+78  csys-minimized                               value 8.
+78  csys-hidden                                  value 32.
+78  csys-shell                                   value 64.
+78  csys-desktop                                 value 128.
+
+78  listenv-open                                 value 1.
+78  listenv-next                                 value 2.
+78  listenv-close                                value 3.
+
+78  listdir-open                                 value 1.
+78  listdir-next                                 value 2.
+78  listdir-close                                value 3.
+
+78  listusr-open                                 value 1.
+78  listusr-next                                 value 2.
+78  listusr-close                                value 3.
+
+78  listlock-open                                value 1.
+78  listlock-next                                value 2.
+78  listlock-close                               value 3.
+
+78  get-blob-from-file                           value 1.
+78  put-blob-into-file                           value 2.
+78  free-blob-handle                             value 3.
+
+78  edbi-disconnect-connection                   value 1.
+78  edbi-disconnect-all                          value 2.
+
+78  wd2-get-user-agent                           value 1.
+78  wd2-get-browser-name                         value 2.
+
+78  wd2-get-session-value                        value 1.
+78  wd2-put-session-value                        value 2.
+
+78  auserinfo-set                                value 1.
+78  auserinfo-get                                value 2.
+78  auserinfo-clear                              value 3.
+
+78  crep-case-insensitive                        value 1.
+78  crep-left-trimmed                            value 2.
+78  crep-right-trimmed                           value 4.
+
+78  wflush-refresh                               value 1.
+78  wflush-inhibit                               value 256.
+78  wflush-allow                                 value 257.
+78  wflush-disable-ui                            value 512.
+78  wflush-enable-ui                             value 513.
+
+78  wkbuf-add-to-end                             value 1.
+78  wkbuf-add-to-beginning                       value 2.
+78  wkbuf-clear-buffer                           value 3.
+78  wkbuf-start-recording                        value 4.
+78  wkbuf-stop-recording                         value 5.
+78  wkbuf-is-recording-active                    value 6.
+78  wkbuf-start-recording-file                   value 7.
+78  wkbuf-start-recording-file-append            value 8.
+78  wkbuf-load-from-file                         value 9.
+
+78  jget-laf-font                                value 1.
+78  jget-laf-color                               value 2.
+78  jget-laf-class                               value 3.
+
+78  cmonitor-get-no-monitor                      value 0.
+78  cmonitor-get-monitor-info                    value 1.
+
+78  cprel-error                                  value 0.
+78  cprel-starting                               value 1.
+78  cprel-in-progress                            value 2.
+78  cprel-completed                              value 3.
+
+78  cregexp-get-level                            value 1.
+78  cregexp-compile                              value 2.
+78  cregexp-match                                value 3.
+78  cregexp-release-match                        value 4.
+78  cregexp-release                              value 5.
+78  cregexp-numgroups                            value 6.
+78  cregexp-getmatch                             value 7.
+78  cregexp-last-error                           value 20.
+78  cregexp-compile-ignorecase                   value 1.
+78  cregexp-error-no-error                       value 0.
+78  cregexp-error-unexpected                     value 5.
+78  cregexp-error-invalid-range                  value 8.
+78  cregexp-error-invalid-handle                 value 11.
+78  cregexp-error-no-match                       value 14.
+
+78  cprof-set                                    value 1.
+78  cprof-flush                                  value 2.
+78  cprof-disable                                value 3.
+78  cprof-enable                                 value 4.
+
+78  ccov-set                                     value 1.
+78  ccov-flush                                   value 2.
+
+78  cxml-parse-file                              value 1.
+78  cxml-release-parser                          value 2.
+78  cxml-get-first-child                         value 3.
+78  cxml-get-next-sibling                        value 4.
+78  cxml-get-parent                              value 5.
+78  cxml-get-data                                value 6.
+78  cxml-get-attribute-count                     value 7.
+78  cxml-get-attribute                           value 8.
+78  cxml-get-last-error                          value 9.
+78  cxml-open-file                               value 10.
+78  cxml-parse-string                            value 11.
+78  cxml-parse-next-record                       value 12.
+78  cxml-get-prev-sibling                        value 13.
+78  cxml-new-parser                              value 14.
+78  cxml-get-attribute-by-name                   value 15.
+78  cxml-get-child-by-name                       value 16.
+78  cxml-get-child-by-cdata                      value 17.
+78  cxml-get-child-by-attr-name                  value 18.
+78  cxml-get-child-by-attr-value                 value 19.
+78  cxml-get-sibling-by-name                     value 20.
+78  cxml-get-sibling-by-cdata                    value 21.
+78  cxml-get-sibling-by-attr-name                value 22.
+78  cxml-get-sibling-by-attr-value               value 23.
+78  cxml-get-comment                             value 24.
+78  cxml-set-data                                value 25.
+78  cxml-modify-cdata                            value 25.
+78  cxml-modify-attribute-value                  value 26.
+78  cxml-add-child                               value 27.
+78  cxml-add-sibling                             value 28.
+78  cxml-add-attribute                           value 29.
+78  cxml-add-comment                             value 30.
+78  cxml-append-comment                          value 31.
+78  cxml-delete-attribute                        value 32.
+78  cxml-delete-element                          value 33.
+78  cxml-delete-comment                          value 34.
+78  cxml-write-file                              value 35.
+78  cxml-get-proc-instr-count                    value 36.
+78  cxml-get-proc-instr                          value 37.
+78  cxml-set-proc-instr                          value 38.
+78  cxml-get-version                             value 39.
+78  cxml-set-version                             value 40.
+78  cxml-get-encoding                            value 41.
+78  cxml-set-encoding                            value 42.
+78  cxml-get-standalone                          value 43.
+78  cxml-set-standalone                          value 44.
+78  cxml-write-string                            value 48.
+
+01  listdir-file-information.
+    03  listdir-file-type                        pic x.
+        88  listdir-file-type-directory          value "D".
+        88  listdir-file-type-regular-file       value "F".
+        88  listdir-file-type-unknown            value "U".
+    03  listdir-file-creation-time.
+        05  ldfc-year                            pic xx comp-x.
+        05  ldfc-month                           pic x comp-x.
+        05  ldfc-day                             pic x comp-x.
+        05  ldfc-hour                            pic x comp-x.
+        05  ldfc-minute                          pic x comp-x.
+        05  ldfc-second                          pic x comp-x.
+        05  ldfc-hundreths                       pic x comp-x.
+    03  listdir-file-last-access-time.
+        05  ldfla-year                           pic xx comp-x.
+        05  ldfla-month                          pic x comp-x.
+        05  ldfla-day                            pic x comp-x.
+        05  ldfla-hour                           pic x comp-x.
+        05  ldfla-minute                         pic x comp-x.
+        05  ldfla-second                         pic x comp-x.
+        05  ldfla-hundreths                      pic x comp-x.
+    03  listdir-file-last-modification-time.
+        05  ldflm-year                           pic xx comp-x.
+        05  ldflm-month                          pic x comp-x.
+        05  ldflm-day                            pic x comp-x.
+        05  ldflm-hour                           pic x comp-x.
+        05  ldflm-minute                         pic x comp-x.
+        05  ldflm-second                         pic x comp-x.
+        05  ldflm-hundreths                      pic x comp-x.
+    03  listdir-file-size                        pic x(8) comp-x.
+    
+01 wsave-options.
+   03 wsave-format                               pic x(1).  
+      88 wsave-png                               values "P", " ".
+      88 wsave-bmp                               value  "B".
+      88 wsave-gif                               value  "G".
+      88 wsave-jpg                               value  "J".
+   03 wsave-other.
+      05 wsave-quality                           pic 9(10) comp-x.
+      05 wsave-transparency                      redefines wsave-quality.
+         07 filler                               pic 9(1) comp-x.
+            88 no-transparency                   value 0 false 1.
+         07 wsave-transparent-color              pic 9(9) comp-x.
+   03 wsave-client-server                        pic x.
+      88 wsave-server                            values "S", " ".
+      88 wsave-client                            value  "C".
+
+ 01 cmonitor-data.
+    03 cmonitor-usable-screen-height             pic x(2) comp-x.
+    03 cmonitor-usable-screen-width              pic x(2) comp-x.
+    03 cmonitor-physical-screen-height           pic x(2) comp-x.
+    03 cmonitor-physical-screen-width            pic x(2) comp-x.
+    03 cmonitor-start-y                          signed-int.
+    03 cmonitor-start-x                          signed-int.
+
+      >>SOURCE FORMAT PREVIOUS

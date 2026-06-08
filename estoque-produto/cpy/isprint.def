@@ -1,0 +1,506 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  winprint-supported                           value 1.
+78  winprint-setup                               value 2. 
+78  winprint-setup-old                           value 2.
+78  winprint-set-std-font                        value 3.
+78  winprint-get-page-layout                     value 4.
+78  winprint-get-settings-size                   value 5.
+78  winprint-get-settings                        value 6.
+78  winprint-set-settings                        value 7.
+78  winprint-set-font                            value 8.
+78  winprint-set-lines-per-page                  value 9.
+78  winprint-get-capabilities                    value 10.
+78  winprint-print-bitmap                        value 11.
+78  winprint-set-margins                         value 12.
+78  winprint-get-no-printers                     value 13.
+78  winprint-get-printer-info                    value 14.
+78  winprint-set-printer                         value 15.
+78  winprint-get-current-info                    value 16.
+78  winprint-set-data-columns                    value 18.
+78  winprint-clear-data-columns                  value 19.
+78  winprint-set-page-column                     value 20.
+78  winprint-clear-page-columns                  value 21.
+78  winprint-get-page-column                     value 22.
+78  winprint-graph-brush                         value 23.
+78  winprint-graph-pen                           value 24.
+78  winprint-graph-draw                          value 25.
+78  winprint-set-cursor                          value 26.
+78  winprint-get-spool-err                       value 27.
+78  winprint-get-printer-info-ex                 value 28.
+78  winprint-set-printer-ex                      value 29.
+78  winprint-get-current-info-ex                 value 30.
+78  winprint-set-text-color                      value 31.
+78  winprint-get-printer-status                  value 32.
+78  winprint-get-printer-media                   value 33.
+78  winprint-get-job-status                      value 34.
+78  winprint-set-job-status                      value 35.
+78  winprint-set-job                             value 36.
+78  winprint-update-printers                     value 39.
+78  winprint-set-background-color                value 94.
+78  winprint-set-header-footer                   value 95.
+78  winprint-set-custom-paper                    value 96.
+78  winprint-cancel-job                          value 97.
+78  winprint-set-attribute                       value 98.
+78  winprint-set-printer-as                      value 99.
+78  winprint-get-no-async-jobs                   value 100.
+
+78  wprterr-unsupported                          value 0.
+78  wprterr-bad-arg                              value -1.
+78  wprterr-cancelled                            value -2.
+78  wprterr-buffer-too-small                     value -3.
+78  wprterr-no-memory                            value -4.
+78  wprterr-spooler-open                         value -5.
+78  wprterr-spooler-closed                       value -6.
+78  wprterr-device-incapable                     value -7.
+78  wprterr-enum-fail                            value -8.
+78  wprterr-drv-loadfail                         value -9.
+78  wprterr-bad-driver                           value -10.
+78  wprterr-spool-err                            value -11.
+
+78  wprtfont-default                             value 1.
+78  wprtfont-courier-12                          value 2.
+78  wprtfont-courier-12-comp                     value 3.
+78  wprtfont-courier-10                          value 4.
+78  wprtfont-courier-10-comp                     value 5.
+
+78  wprtbitmap-printer-bitmap                    value 1.
+78  wprtbitmap-scale-cells                       value 2.
+78  wprtbitmap-scale-inches                      value 4.
+78  wprtbitmap-scale-centimeters                 value 8.
+78  wprtbitmap-scale-pixels                      value 16.
+78  wprtbitmap-units-inches                      value 32.
+78  wprtbitmap-units-centimeters                 value 64.
+78  wprtbitmap-units-pixels                      value 128.
+78  wprtbitmap-units-cells-abs                   value 256.
+78  wprtbitmap-units-inches-abs                  value 512.
+78  wprtbitmap-units-centimeters-abs             value 1024.
+
+78  wprtmargin-default-margins                   value 0.
+78  wprtmargin-cells                             value 1.
+78  wprtmargin-inches                            value 2.
+78  wprtmargin-centimeters                       value 3.
+78  wprtmargin-pixels                            value 4.
+
+78  wprtsel-orient-default                       value 0.
+78  wprtsel-orient-portrait                      value 1.
+78  wprtsel-orient-landscape                     value 2.
+78  wprtsel-quality-default                      value 0.
+78  wprtsel-quality-high                         value -1.
+78  wprtsel-quality-medium                       value -2.
+78  wprtsel-quality-low                          value -3.
+78  wprtsel-quality-draft                        value -4.
+
+78  wprtunits-cells                              value 0.
+78  wprtunits-inches                             value 1.
+78  wprtunits-centimeters                        value 2.
+78  wprtunits-pixels                             value 3.
+78  wprtunits-cells-abs                          value 4.
+78  wprtunits-inches-abs                         value 5.
+78  wprtunits-centimeters-abs                    value 6.
+
+78  wprtalign-none                               value space.
+78  wprtalign-left                               value "L".
+78  wprtalign-right                              value "R".
+78  wprtalign-center                             value "C".
+78  wprtalign-decimal                            value "D".
+78  wprtalign-decimal-suppress                   value "S".
+78  wprtalign-right-sign                         value "-".
+
+78  wprt-draw-rectangle                          value 1.
+78  wprt-draw-round-rectangle                    value 2.
+78  wprt-draw-line                               value 3.
+
+78  wprt-pen-solid                               value 0.
+78  wprt-pen-dash                                value 1.
+78  wprt-pen-dot                                 value 2.
+78  wprt-pen-dashdot                             value 3.
+78  wprt-pen-dashdotdot                          value 4.
+78  wprt-pen-null                                value 5.
+78  wprt-pen-insideframe                         value 6.
+
+78  wprt-brush-solid                             value 0.
+78  wprt-brush-null                              value 1.
+78  wprt-brush-bdiagonal                         value 2.
+78  wprt-brush-cross                             value 3.
+78  wprt-brush-diagcross                         value 4.
+78  wprt-brush-fdiagonal                         value 5.
+78  wprt-brush-horizontal                        value 6.
+78  wprt-brush-vertical                          value 7.
+78  wprt-brush-dkgray                            value 8.
+78  wprt-brush-gray                              value 9.
+78  wprt-brush-ltgray                            value 10.
+
+78  wprt-color-black                             value x#000000.
+78  wprt-color-red                               value x#0000FF.
+78  wprt-color-green                             value x#00FF00.
+78  wprt-color-blue                              value x#FF0000.
+78  wprt-color-yellow                            value x#00FFFF.
+78  wprt-color-magenta                           value x#FF00FF.
+78  wprt-color-cyan                              value x#FFFF00.
+78  wprt-color-white                             value x#FFFFFF.
+
+01  winprint-data.
+    03  wprtdata-set-std-font.
+        05  wprtdata-std-font                    pic x comp-x.
+        05  filler                               pic x(21).
+    03  wprtdata-page-layout  redefines wprtdata-set-std-font.
+        05  wprtdata-lines-per-page              unsigned-short.
+        05  wprtdata-columns-per-page            unsigned-short.
+    03  wprtdata-set-font     redefines wprtdata-set-std-font.
+        05  wprtdata-font                        handle of font.
+    03  wprtdata-capabilities redefines wprtdata-set-std-font.
+        05  wprtdata-bitmaps-ok-flag             pic 9.
+            88  wprtdata-bitmaps-ok              value 1, false zero.
+    03  wprtdata-print-bitmap redefines wprtdata-set-std-font.
+        05  wprtdata-bitmap                      pic x(4) comp-n.
+        05  wprtdata-bitmap-row                  pic 9(7)v99 comp-5.
+        05  wprtdata-bitmap-col                  pic 9(7)v99 comp-5.
+        05  wprtdata-bitmap-height               pic 9(7)v99 comp-5.
+        05  wprtdata-bitmap-width                pic 9(7)v99 comp-5.
+        05  wprtdata-bitmap-flags                unsigned-short.
+    03  wprtdata-margins      redefines wprtdata-set-std-font.
+        05  wprtdata-top-margin                  pic 9(7)v99 comp-5.
+        05  wprtdata-bottom-margin               pic 9(7)v99 comp-5.
+        05  wprtdata-left-margin                 pic 9(7)v99 comp-5.
+        05  wprtdata-right-margin                pic 9(7)v99 comp-5.
+        05  wprtdata-margin-units                unsigned-short.
+    03  wprtdata-draw         redefines wprtdata-set-std-font.
+        05  wprtdata-draw-start-x                pic 9(7)v99 comp-5.
+        05  wprtdata-draw-start-y                pic 9(7)v99 comp-5.
+        05  wprtdata-draw-stop-x                 pic 9(7)v99 comp-5.
+        05  wprtdata-draw-stop-y                 pic 9(7)v99 comp-5.
+        05  wprtdata-draw-units                  unsigned-short.
+        05  wprtdata-draw-shape                  unsigned-short.
+    03  wprtdata-pen          redefines wprtdata-set-std-font.
+        05  wprtdata-pen-style                   unsigned-short.
+        05  wprtdata-pen-width                   unsigned-short.
+        05  wprtdata-pen-color                   pic 9(9) comp-5.
+    03  wprtdata-brush        redefines wprtdata-set-std-font.
+        05  wprtdata-brush-style                 unsigned-short.
+        05  wprtdata-brush-color                 pic 9(9) comp-5.
+    03  wprtdata-text-color   redefines wprtdata-set-std-font     
+                                                 pic 9(9) comp-5.
+      
+78  max-paper-sizes                              value 41.
+78  max-paper-trays                              value 13.
+78  max-printer-status                           value 26.
+78  max-job-status                               value 12.
+
+01  winprint-selection.
+    03  winprint-name                            pic x(80).
+    03  winprint-port                            pic x(80).
+    03  winprint-driver                          pic x(80).
+    03  winprint-drv-version                     signed-int.
+    03  winprint-no-of-printers                  signed-short.
+        88 wprterr-no-printers                   value -1.
+    03  winprint-is-default                      signed-short.
+        88 wprt-is-not-default                   value 0.
+        88 wprt-is-default                       value 1.
+    03  winprint-copies                          signed-short.
+        88 wprt-has-no-copy                      value 1.
+    03  winprint-orientation                     signed-short.
+        88 wprt-has-no-landscape                 value 0.
+        88 wprt-has-landscape                    value 1.
+    03  winprint-quality                         signed-short.
+    03  winprint-curr-orientation                signed-short.
+        88 wprt-curr-default                     value 0.
+        88 wprt-curr-portrait                    value 1.
+        88 wprt-curr-landscape                   value 2. 
+    03  winprint-curr-copies                     signed-short.
+    03  winprint-duplex                          signed-short.
+        88 wprt-has-no-duplex                    value 0.
+        88 wprt-has-duplex                       value 1.
+    03  winprint-collate                         signed-short.
+        88 wprt-has-no-collate                   value 0.
+        88 wprt-has-collate                      value 1.
+    03  winprint-color                           signed-short.
+        88 wprt-has-no-color                     value 0.
+        88 wprt-has-color                        value 1.
+    03  winprint-curr-duplex                     signed-short.
+        88 wprt-simplex                          value 1.
+        88 wprt-duplex-vertical                  value 2.
+        88 wprt-duplex-horizontal                value 3.
+    03  winprint-curr-collate                    signed-short.
+        88 wprt-collate-off                      value 0.
+        88 wprt-collate-on                       value 1.
+    03  winprint-curr-papersize                  signed-short.
+        88 wprt-letter                           value  1.
+        88 wprt-lettersmall                      value  2.
+        88 wprt-tabloid                          value  3.
+        88 wprt-ledger                           value  4.
+        88 wprt-legal                            value  5.
+        88 wprt-statement                        value  6.
+        88 wprt-executive                        value  7.
+        88 wprt-a3                               value  8.
+        88 wprt-a4                               value  9.
+        88 wprt-a4small                          value 10.
+        88 wprt-a5                               value 11.
+        88 wprt-b4                               value 12.
+        88 wprt-b5                               value 13.
+        88 wprt-folio                            value 14.
+        88 wprt-quarto                           value 15.
+        88 wprt-10x14                            value 16.
+        88 wprt-11x17                            value 17.
+        88 wprt-note                             value 18.
+        88 wprt-env_9                            value 19.
+        88 wprt-env_10                           value 20.
+        88 wprt-env_11                           value 21.
+        88 wprt-env_12                           value 22.
+        88 wprt-env_14                           value 23.
+        88 wprt-csheet                           value 24.
+        88 wprt-dsheet                           value 25.
+        88 wprt-esheet                           value 26.
+        88 wprt-env_dl                           value 27.
+        88 wprt-env_c5                           value 28.
+        88 wprt-env_c3                           value 29.
+        88 wprt-env_c4                           value 30.
+        88 wprt-env_c6                           value 31.
+        88 wprt-env_c65                          value 32.
+        88 wprt-env_b4                           value 33.
+        88 wprt-env_b5                           value 34.
+        88 wprt-env_b6                           value 35.
+        88 wprt-env_italy                        value 36.
+        88 wprt-env_monarch                      value 37.
+        88 wprt-env_personal                     value 38.
+        88 wprt-fanfold_us                       value 39.
+        88 wprt-fanfold_std_german               value 40.
+        88 wprt-fanfold_lgl_german               value 41.
+        88 wprt-japanese-postcard                value 43.
+        88 wprt-env-9x11                         value 44.
+        88 wprt-10x11                            value 45.
+        88 wprt-15x11                            value 46.
+        88 wprt-env-invite                       value 47.
+        88 wprt-us-letter-extra                  value 50.
+        88 wprt-us-legal-extra                   value 51.
+        88 wprt-tabloid-extra                    value 52.
+        88 wprt-a4-extra                         value 53.
+        88 wprt-letter-transverse                value 54.
+        88 wprt-a4-transverse                    value 55.
+        88 wprt-letter-extra-transverse          value 56.
+        88 wprt-supera-a4                        value 57.                        
+        88 wprt-superb-a3                        value 58.
+        88 wprt-us-letter-plus                   value 59.
+        88 wprt-a4-plus                          value 60.
+        88 wprt-a5-transverse                    value 61.
+        88 wprt-b5-transverse                    value 62.
+        88 wprt-a3-extra                         value 63.
+        88 wprt-a5-extra                         value 64.
+        88 wprt-b5-extra                         value 65.
+        88 wprt-a2                               value 66.
+        88 wprt-a3-transverse                    value 67.
+        88 wprt-a3-extra-transverse              value 68.
+        88 wprt-oufuko-postcard                  value 69.
+        88 wprt-a6                               value 70.
+      
+    03  winprint-curr-tray                       signed-short.
+        88 wprt-upper-tray                       value 1.
+        88 wprt-lower-tray                       value 2.
+        88 wprt-middle-tray                      value 3.
+        88 wprt-manual-tray                      value 4.
+        88 wprt-envelope-tray                    value 5.
+        88 wprt-envmanual-tray                   value 6.
+        88 wprt-auto-tray                        value 7.
+        88 wprt-tractor-tray                     value 8.
+        88 wprt-smallfmt-tray                    value 9.
+        88 wprt-largefmt-tray                    value 10.
+        88 wprt-largecapacity-tray               value 11.
+        88 wprt-cassette-tray                    value 14.
+        88 wprt-formsource-tray                  value 15.
+    03  winprint-curr-color                      signed-short.
+        88 wprt-monochrome                       value 0.
+        88 wprt-color                            value 1.
+    03  winprint-job-title                       pic x(80).
+
+01  winprint-media.
+    03  winprint-media-printer                   pic x(80).
+    03  winprint-media-port                      pic x(80).
+    03  winprint-media-papercount                signed-short.
+    03  winprint-media-traycount                 signed-short.
+    03  winprint-media-paper                     signed-short occurs max-paper-sizes.
+    03  winprint-media-trays                     signed-short occurs max-paper-trays.
+
+01  winprint-job-status.
+    03  winprint-job-printer                     pic x(80).
+    03  winprint-job-id                          signed-int.
+    03  winprint-job-status-no                   pic 9(9) comp-5.
+        88 wprt-job-pause                        value 1.
+        88 wprt-job-resume                       value 2.
+        88 wprt-job-cancel                       value 3.
+        88 wprt-job-restart                      value 4.
+    03  winprint-job-position                    signed-int.
+    03  winprint-job-page-total                  signed-int.
+    03  winprint-job-page-printed                signed-int.
+    03  winprint-job-status-text                 pic x(80).
+
+01  winprint-column.
+    03  winprint-col-start                       pic 9(7)v99 comp-5.
+    03  winprint-col-indent                      pic 9(7)v99 comp-5.
+    03  winprint-col-separation                  pic 9(7)v99 comp-5.
+    03  winprint-col-font                        handle of font.
+    03  winprint-col-units                       pic 99 comp-x.
+    03  winprint-col-alignment                   pic x.
+    03  winprint-transparency                    pic 99 comp-x.
+        88  winprint-transparent                 value 1, false 0.
+
+01  misc-winprint-tables.
+    03  paper-sizes.
+        05 filler                      pic x(34) value "letter 8 1/2 x 11 in".
+        05 filler                      pic x(34) value "letter small 8 1/2 x 11 in".
+        05 filler                      pic x(34) value "tabloid 11 x 17 in".
+        05 filler                      pic x(34) value "ledger 17 x 11 in".
+        05 filler                      pic x(34) value "legal 8 1/2 x 14 in".
+        05 filler                      pic x(34) value "statement 5 1/2 x 8 1/2 in".
+        05 filler                      pic x(34) value "executive 7 1/4 x 10 1/2 in".
+        05 filler                      pic x(34) value "a3 297 x 420 mm".
+        05 filler                      pic x(34) value "a4 210 x 297 mm".
+        05 filler                      pic x(34) value "a4 small 210 x 297 mm".
+        05 filler                      pic x(34) value "a5 148 x 210 mm".
+        05 filler                      pic x(34) value "b4 (jis) 250 x 354 mm".
+        05 filler                      pic x(34) value "b5 (jis) 182 x 257 mm".
+        05 filler                      pic x(34) value "folio 8 1/2 x 13 in".
+        05 filler                      pic x(34) value "quarto 215 x 275 mm".
+        05 filler                      pic x(34) value "10x14 in".
+        05 filler                      pic x(34) value "11x17 in".
+        05 filler                      pic x(34) value "note 8 1/2 x 11 in".
+        05 filler                      pic x(34) value "envelope #9 3 7/8 x 8 7/8 in".
+        05 filler                      pic x(34) value "envelope #10 4 1/8 x 9 1/2 in".
+        05 filler                      pic x(34) value "envelope #11 4 1/2 x 10 3/8 in".
+        05 filler                      pic x(34) value "envelope #12 4 \276 x 11 in".
+        05 filler                      pic x(34) value "envelope #14 5 x 11 1/2 in".
+        05 filler                      pic x(34) value "c size sheet".
+        05 filler                      pic x(34) value "d size sheet".
+        05 filler                      pic x(34) value "e size sheet".
+        05 filler                      pic x(34) value "envelope dl 110 x 220 mm".
+        05 filler                      pic x(34) value "envelope c5 162 x 229 mm".
+        05 filler                      pic x(34) value "envelope c3  324 x 458 mm".
+        05 filler                      pic x(34) value "envelope c4  229 x 324 mm".
+        05 filler                      pic x(34) value "envelope c6  114 x 162 mm".
+        05 filler                      pic x(34) value "envelope c65 114 x 229 mm".
+        05 filler                      pic x(34) value "envelope b4  250 x 353 mm".
+        05 filler                      pic x(34) value "envelope b5  176 x 250 mm".
+        05 filler                      pic x(34) value "envelope b6  176 x 125 mm".
+        05 filler                      pic x(34) value "envelope 110 x 230 mm".
+        05 filler                      pic x(34) value "envelope monarch 3.875 x 7.5 in".
+        05 filler                      pic x(34) value "6 3/4 envelope 3 5/8 x 6 1/2 in".
+        05 filler                      pic x(34) value "us std fanfold 14 7/8 x 11 in".
+        05 filler                      pic x(34) value "german std fanfold 8 1/2 x 12 in".
+        05 filler                      pic x(34) value "german legal fanfold 8 1/2 x 13 in".
+        05 filler                      pic x(34) value "japanese-postcard".
+        05 filler                      pic x(34) value "na-9x11-envelope".
+        05 filler                      pic x(34) value "10 x 11 in".
+        05 filler                      pic x(34) value "15 x 11 in".
+        05 filler                      pic x(34) value "Envelope Invite 220 x 220 mm".
+        05 filler                      pic x(34) value "US Letter Extra 9 1/2 x 12 in".
+        05 filler                      pic x(34) value "US Legal Extra 9 1/2 x 15 in".
+        05 filler                      pic x(34) value "US Tabloid Extra 11.69 x 18 in".
+        05 filler                      pic x(34) value "A4 Extra 9.27 x 12.69 in".
+        05 filler                      pic x(34) value "Letter Transverse 8 1/2 x 11 in".
+        05 filler                      pic x(34) value "A4 Transverse 210 x 297 mm".
+        05 filler                      pic x(34) value "Letter Extra Transverse". 
+        05 filler                      pic x(34) value "SuperA/SuperA/A4 227 x 356 mm".
+        05 filler                      pic x(34) value "SuperB/SuperB/A3 305 x 487 mm".
+        05 filler                      pic x(34) value "US Letter Plus 8.5 x 12.69 in".
+        05 filler                      pic x(34) value "A4 Plus 210 x 330 mm".
+        05 filler                      pic x(34) value "A5 Transverse 148 x 210 mm".
+        05 filler                      pic x(34) value "B5 (JIS) Transverse 182 x 257 mm".
+        05 filler                      pic x(34) value "A3 Extra 322 x 445 mm".
+        05 filler                      pic x(34) value "A5 Extra 174 x 235 mm".
+        05 filler                      pic x(34) value "B5 (ISO) Extra 201 x 276 mm".
+        05 filler                      pic x(34) value "iso-a2".
+        05 filler                      pic x(34) value "A3 Transverse 297 x 420 mm".
+        05 filler                      pic x(34) value "A3 Extra Transverse 322 x 445 mm".
+        05 filler                      pic x(34) value "oufuko-postcard".
+        05 filler                      pic x(34) value "iso-a6".
+    03  paper-size-table redefines paper-sizes   pic x(34) occurs max-paper-sizes.
+    03  paper-trays.
+        05 filler                      pic x(34) value "upper tray".
+        05 filler                      pic x(34) value "lower tray".
+        05 filler                      pic x(34) value "middle tray".
+        05 filler                      pic x(34) value "manual".
+        05 filler                      pic x(34) value "envelope tray".
+        05 filler                      pic x(34) value "manual envelope".
+        05 filler                      pic x(34) value "auto".
+        05 filler                      pic x(34) value "tractor feeder".
+        05 filler                      pic x(34) value "small format tray".
+        05 filler                      pic x(34) value "large format tray".
+        05 filler                      pic x(34) value "large capacity tray".
+        05 filler                      pic x(34) value "cassette tray".
+        05 filler                      pic x(34) value "form source tray".
+    03  paper-tray-table redefines paper-trays   pic x(34) occurs max-paper-trays.
+
+01  winprint-printer-status                      signed-int.
+
+01  printer-conditions-r.
+    03  printer-status-idle                      pic 9(9) comp-5 value 0.
+    03  printer-status-paused                    pic 9(9) comp-5 value 1.
+    03  printer-status-error                     pic 9(9) comp-5 value 2.
+    03  printer-status-pending-deletion          pic 9(9) comp-5 value 4.
+    03  printer-status-paper-jam                 pic 9(9) comp-5 value 8.
+    03  printer-status-paper-out                 pic 9(9) comp-5 value 16.
+    03  printer-status-manual-feed               pic 9(9) comp-5 value 32.
+    03  printer-status-paper-problem             pic 9(9) comp-5 value 64.
+    03  printer-status-offline                   pic 9(9) comp-5 value 128.
+    03  printer-status-io-active                 pic 9(9) comp-5 value 256.
+    03  printer-status-busy                      pic 9(9) comp-5 value 512.
+    03  printer-status-printing                  pic 9(9) comp-5 value 1024.
+    03  printer-status-output-bin-full           pic 9(9) comp-5 value 2048.
+    03  printer-status-not-available             pic 9(9) comp-5 value 4096.
+    03  printer-status-waiting                   pic 9(9) comp-5 value 8192.
+    03  printer-status-processing                pic 9(9) comp-5 value 16384.
+    03  printer-status-initializing              pic 9(9) comp-5 value 32768.
+    03  printer-status-warming-up                pic 9(9) comp-5 value 65536.
+    03  printer-status-toner-low                 pic 9(9) comp-5 value 131072.
+    03  printer-status-no-toner                  pic 9(9) comp-5 value 262144.
+    03  printer-status-page-punt                 pic 9(9) comp-5 value 524288.
+    03  printer-status-user-intervention         pic 9(9) comp-5 value 1048576.
+    03  printer-status-out-of-memory             pic 9(9) comp-5 value 2097152.
+    03  printer-status-door-open                 pic 9(9) comp-5 value 4194304.
+    03  printer-status-server-unknown            pic 9(9) comp-5 value 8388608.
+    03  printer-status-power-save                pic 9(9) comp-5 value 16777216.
+01  printer-conditions redefines printer-conditions-r
+                                                 pic 9(9) comp-5 occurs max-printer-status.
+
+01  job-conditions-r.
+    03  job-status-paused                        pic 9(9) comp-5 value 1.
+    03  job-status-error                         pic 9(9) comp-5 value 2.
+    03  job-status-deleting                      pic 9(9) comp-5 value 4.
+    03  job-status-spooling                      pic 9(9) comp-5 value 8.
+    03  job-status-printing                      pic 9(9) comp-5 value 16.
+    03  job-status-offline                       pic 9(9) comp-5 value 32.
+    03  job-status-paperout                      pic 9(9) comp-5 value 64.
+    03  job-status-printed                       pic 9(9) comp-5 value 128.
+    03  job-status-deleted                       pic 9(9) comp-5 value 256.
+    03  job-status-stat-blocked-devq             pic 9(9) comp-5 value 512.
+    03  job-status-user-intervention             pic 9(9) comp-5 value 1024.
+    03  job-status-restart                       pic 9(9) comp-5 value 2048.
+01  job-conditions redefines job-conditions-r    pic 9(9) comp-5 occurs max-job-status.
+          
+01  winprint-as                                  pic 9 value 0.
+    88 wprt-as-client                            value 0.
+    88 wprt-as-server                            value 1.
+
+77  pdfcrypt-type                     pic 9(9) value 0.
+78  pdfcrypt-no                       value 0.
+78  pdfcrypt-std-40                   value 1.
+78  pdfcrypt-std-128                  value 2.
+78  pdfcrypt-aes-128                  value 3.
+78  pdfcrypt-no-metadata              value x#08.
+78  pdfcrypt-embedded-files-only      value x#10.
+
+78  pdfcrypt-allow-printing           value x#0100.
+78  pdfcrypt-allow-modify-content     value x#0200.
+78  pdfcrypt-allow-copy               value x#0400.
+78  pdfcrypt-allow-modify-annotations value x#0800.
+78  pdfcrypt-allow-fill-in            value x#1000.
+78  pdfcrypt-allow-screenreaders      value x#2000.
+78  pdfcrypt-allow-assembly           value x#4000.
+78  pdfcrypt-allow-degraded-printing  value x#8000.
+78  pdfcrypt-all-permissions          value x#FF00.
+
+       >>SOURCE FORMAT PREVIOUS

@@ -1,0 +1,26 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  help-context                                 value 1.
+78  help-quit                                    value 2.
+78  help-contents                                value 3.
+78  help-helponhelp                              value 4.
+78  help-setcontents                             value 5.
+78  help-contextpopup                            value 8.
+78  help-forcefile                               value 9.
+78  help-key                                     value 257.
+78  help-command                                 value 258.
+78  help-partialkey                              value 261.
+78  help-multikey                                value 513.
+78  help-setwinpos                               value 515.
+                              
+78  help-contextmenu                             value 10.
+78  help-finder                                  value 11.
+78  help-wm-help                                 value 12.
+78  help-setpopup-pos                            value 13.
+
+       >>SOURCE FORMAT PREVIOUS

@@ -1,0 +1,15 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+77  fixed-font                                   handle of font fixed-font.
+77  traditional-font                             handle of font traditional-font.
+77  default-font                                 handle of font default-font.
+77  small-font                                   handle of font small-font.
+77  medium-font                                  handle of font medium-font.
+77  large-font                                   handle of font large-font.
+
+       >>SOURCE FORMAT PREVIOUS

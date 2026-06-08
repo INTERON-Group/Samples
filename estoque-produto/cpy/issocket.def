@@ -1,0 +1,44 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  ags-create-server                            value 1.
+78  ags-accept                                   value 2.
+78  ags-create-client                            value 3.
+78  ags-close                                    value 4.
+78  ags-write                                    value 5.
+78  ags-read                                     value 6.
+78  ags-flush                                    value 7.
+78  ags-empty                                    value 8.
+78  ags-gethostname                              value 9.
+78  ags-last-error                               value 10.
+78  ags-next-read                                value 11.
+78  ags-remote-name                              value 12.
+78  ags-remote-addr                              value 13.
+78  ags-read-line                                value 14.
+
+78  csocket-create-server                        value ags-create-server.
+78  csocket-accept                               value ags-accept.
+78  csocket-create-client                        value ags-create-client.
+78  csocket-close                                value ags-close.
+78  csocket-write                                value ags-write.
+78  csocket-read                                 value ags-read.
+78  csocket-flush                                value ags-flush.
+78  csocket-empty                                value ags-empty.
+78  csocket-gethostname                          value ags-gethostname.
+78  csocket-last-error                           value ags-last-error.
+78  csocket-next-read                            value ags-next-read.
+78  csocket-remote-name                          value ags-remote-name.
+78  csocket-remote-addr                          value ags-remote-addr.
+78  csocket-read-line                            value ags-read-line.
+78  csocket-getremoteaddress                     value 31.
+
+01  csocket-remote-address.
+    03 csocket-remote-hostname                   pic x(64).
+    03 csocket-remote-ip-address                 pic x(15).
+    03 csocket-remote-port                       pic 9(5).
+
+       >>SOURCE FORMAT PREVIOUS

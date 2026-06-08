@@ -1,0 +1,83 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  wfont-supported                              value 1.
+78  wfont-choose-font                            value 2.
+78  wfont-get-font                               value 101.
+78  wfont-get-closest-font                       value 102.
+78  wfont-describe-font                          value 106.
+
+78  wfont-font-support                           value 1.
+78  wfont-full-support                           value 2.
+
+78  wfonterr-unsupported                         value 0.
+78  wfonterr-cancelled                           value -1.
+78  wfonterr-font-not-found                      value -2.
+78  wfonterr-invalid-handle                      value -3.
+
+78  wfchoose-fixed-only                          value 1.
+78  wfchoose-initialize                          value 2.
+78  wfchoose-effects-ok                          value 4.
+
+01  wfont-data.
+    03  wfont-face-data.
+        05  wfont-device                         handle, value null.
+            88  wfdevice-console                 value null.
+            88  wfdevice-win-printer             value 1.
+            88  wfdevice-printer                 value 1.
+        05  wfont-name                           pic x(33).
+        05  wfont-char-set                       pic x comp-x.
+            88  wfcharset-dont-care              value 0.
+            88  wfcharset-default                value 1.
+            88  wfcharset-win-oem                value 2.
+            88  wfcharset-win-symbol             value 3.
+            88  wfcharset-win-shiftjis           value 4.
+            88  wfcharset-win-hangul             value 5.
+            88  wfcharset-win-gb2312             value 6.
+            88  wfcharset-win-chinesebig5        value 7.
+            88  wfcharset-win-johab              value 8.
+            88  wfcharset-win-hebrew             value 9.
+            88  wfcharset-win-arabic             value 10.
+            88  wfcharset-win-greek              value 11.
+            88  wfcharset-win-turkish            value 12.
+            88  wfcharset-win-vietnamese         value 13.
+            88  wfcharset-win-thai               value 14.
+            88  wfcharset-win-easteurope         value 15.
+            88  wfcharset-win-russian            value 16.
+            88  wfcharset-win-mac                value 17.
+            88  wfcharset-win-baltic             value 18.
+        05  wfont-size                           pic x comp-x.
+        05  wfont-bold-state                     pic x comp-x.
+            88  wfont-bold                       value 1, false zero.
+        05  wfont-italic-state                   pic x comp-x.
+            88  wfont-italic                     value 1, false zero.
+        05  wfont-underline-state                pic x comp-x.
+            88  wfont-underline                  value 1, false zero.
+        05  wfont-strikeout-state                pic x comp-x.
+            88  wfont-strikeout                  value 1, false zero.
+        05  wfont-pitch-state                    pic x comp-x.
+            88  wfont-fixed-pitch                value 1, false zero.
+        05  wfont-family                         pic x comp-x.
+            88  wffamily-dont-care               value 0.
+            88  wffamily-modern                  value 1.
+            88  wffamily-roman                   value 2.
+            88  wffamily-swiss                   value 3.
+            88  wffamily-script                  value 4.
+            88  wffamily-decorative              value 5.
+    03  wfont-choose-data.
+        05  wfont-choose-flags                   pic x comp-x.
+        05  wfont-choose-min-size                pic x comp-x.
+        05  wfont-choose-max-size                pic x comp-x.
+        05  wfont-choose-red                     pic x comp-x.
+        05  wfont-choose-green                   pic x comp-x.
+        05  wfont-choose-blue                    pic x comp-x.
+        05  wfont-choose-color-num               pic x comp-x.
+    03  wfont-angle                              pic x(2) comp-x.
+    03  wfont-scale-x                            float value 0.
+    03  wfont-scale-y                            float value 0.
+
+       >>SOURCE FORMAT PREVIOUS
