@@ -1,0 +1,42 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  opensave-supported                           value 1.
+78  opensave-open-box                            value 2.
+78  opensave-save-box                            value 3.
+78  opensave-browse-folder                       value 4.
+78  opensave-open-box-multi                      value 5.
+78  opensave-browse-folder-multi                 value 6.
+78  opensave-next                                value 7.
+78  opensave-save-box-checked                    value 8.
+
+78  opensave-show-preview-flag                   value 1.
+78  opensave-overwriteprompt                     value 2.
+78  opensave-pathmustexist                       value 2048.
+78  opensave-filemustexist                       value 4096.
+78  opensave-createprompt                        value 8192.
+78  opensave-noreadonlyreturn                    value 32768.
+
+78  opensave-browse-dontgobelowdomain            value 2.
+78  opensave-browse-browseincludefiles           value 16384.
+
+78  opnsaverr-unsupported                        value 0.
+78  opnsaverr-cancelled                          value -1.
+78  opnsaverr-no-memory                          value -2.
+78  opnsaverr-name-too-large                     value -3.
+
+01  opensave-data.
+    03  opnsav-filename                          pic x(256).
+    03  opnsav-flags                             pic 9(4) comp-x value 0.
+    03  opnsav-default-ext                       pic x(12).
+    03  opnsav-title                             pic x(80).
+    03  opnsav-filters                           pic x(512).
+    03  opnsav-default-filter                    pic 9(4) comp-x value 0.
+    03  opnsav-default-dir                       pic x(128).
+    03  opnsav-basename                          pic x(128).
+
+       >>SOURCE FORMAT PREVIOUS

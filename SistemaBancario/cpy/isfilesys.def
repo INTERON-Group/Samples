@@ -1,0 +1,219 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  max-keys                                     value 120.
+78  max-segs                                     value 16.
+78  max-key-size                                 value 256.
+78  max-record-size-j1                           value 32767.
+78  max-record-size                              value 2147483648.
+      
+77  io-function                                  pic 99 comp-x.
+    88  open-function                            value 1.
+    88  close-function                           value 2.
+    88  make-function                            value 3.
+    88  info-function                            value 4.
+    88  read-function                            value 5.
+    88  next-function                            value 6.
+    88  previous-function                        value 7.
+    88  start-function                           value 8.
+    88  write-function                           value 9.
+    88  rewrite-function                         value 10.
+    88  delete-function                          value 11.
+    88  unlock-function                          value 12.
+    88  remove-function                          value 13.
+    88  flush-function                           value 14.
+    88  execute-function                         value 15.
+    88  start-transaction-function               value 16.
+    88  commit-transaction-function              value 17.
+    88  rollback-function                        value 18.
+    88  recover-function                         value 19.
+    88  in-transaction-function                  value 21.
+
+77  sio-function                                 pic 99 comp-x.
+    88  s-open-function                          value 1.
+    88  s-close-function                         value 2.
+    88  s-make-function                          value 3.
+    88  s-read-function                          value 4.
+    88  s-write-function                         value 5.
+    88  s-rewrite-function                       value 6.
+                     
+01  seq-type                                     signed-short.
+    78  s-fixed                                  value -1.
+    78  s-var-count                              value -2.
+    78  s-line                                   value -3.
+
+77  rio-function                                 pic 99 comp-x.
+    88  r-open-function                          value 1.
+    88  r-close-function                         value 2.
+    88  r-make-function                          value 3.
+    88  r-read-function                          value 4.
+    88  r-next-function                          value 5.
+    88  r-previous-function                      value 6.
+    88  r-start-function                         value 7.
+    88  r-write-function                         value 8.
+    88  r-rewrite-function                       value 9.
+    88  r-delete-function                        value 10.
+    88  r-unlock-function                        value 11.
+   
+77  f-errno                                      signed-short external.
+    88  f-in-error                               values 1 thru 99.
+    88  e-sys-err                                value 1.
+    88  e-param-err                              value 2.
+    88  e-too-many-files                         value 3.
+    88  e-mode-clash                             value 4.
+    88  e-rec-locked                             value 5.
+    88  e-broken                                 value 6.
+    88  e-duplicate                              value 7.
+    88  e-not-found                              value 8.
+    88  e-undef-record                           value 9.
+    88  e-disk-full                              value 10.
+    88  e-file-locked                            value 11.
+    88  e-rec-changed                            value 12.
+    88  e-mismatch                               value 13.
+    88  e-no-memory                              value 14.
+    88  e-missing-file                           value 15.
+    88  e-permission                             value 16.
+    88  e-no-support                             value 17.
+    88  e-no-locks                               value 18.
+    88  e-interface                              value 19.
+    88  e-license-err                            value 20.
+    88  e-unknown-err                            value 21.
+    88  w-no-support                             value 100.
+    88  w-dup-ok                                 value 101.
+
+77  f-no-lock                                    signed-short external.
+
+77  f-log-errno                                  signed-short external.
+    88  f-log-in-error                           values 1 thru 99.
+    88  e-log-external                           value 1.
+    88  e-log-too-many                           value 2.
+    88  e-log-missing                            value 3.
+    88  e-log-permission                         value 4.
+    88  e-log-sys-err                            value 5.
+    88  e-log-corrupt                            value 6.
+    88  e-log-locked                             value 7.
+    88  e-log-no-memory                          value 8.
+    88  e-log-disk-full                          value 9.
+    88  e-no-log                                 value 10.
+    88  e-rb-log-corrupt                         value 11.
+    88  e-log-incomplete                         value 12.
+    88  e-open-not-logged                        value 13.
+    88  e-log-interface                          value 14.
+    88  e-log-remote                             value 15.
+    88  e-log-nested-start                       value 16.
+    88  e-log-temp                               value 17.
+    88  w-log-no-support                         value 100.
+
+77  f-syserr                                     pic x(16)  external.
+77  f-errmsg                                     pic x(256) external.
+
+77  record-size-j1                               signed-short.
+77  record-size                                  unsigned-int.
+77  start-key-size                               signed-short.
+77  key-num                                      signed-short.
+77  flush-all-flag                               signed-short.
+
+01  open-mode                                    signed-short.
+
+78  finput                                       value 0.
+78  foutput                                      value 1.
+78  fio                                          value 2.
+78  fextend                                      value 3.
+78  fmulti-lock                                  value 16.
+78  fread-lock                                   value 256.
+78  fwrite-lock                                  value 512.
+78  fmass-update                                 value 1536.
+78  fencrypt                                     value 4096.
+78  ftrans                                       value 16384.
+78  fbulk-addition                               value 34304.
+
+77  start-mode                                   signed-short.
+    88  f-equals                                 value zero.
+    88  f-not-less                               value 1.
+    88  f-greater                                value 2.
+    88  f-less                                   value 3.
+    88  f-not-greater                            value 4.
+
+77  info-mode                                    signed-short.
+    88  get-logical-params                       value -1.
+    88  get-physical-params                      value -2.
+    88  get-comment                              value -3.
+    88  get-record-count                         value -4.
+    88  get-collating-sequence                   value -5.
+    88  get-lock-count                           value -6.
+    88  get-segment-count                        value -7.
+    88  get-segment-info                         value -8.
+    88  get-file-size                            value -9.
+    88  get-version-number                       value -10.
+    88  get-deleted-count                        value -11.
+    88  get-os-file-descriptor                   value -12.
+
+01  logical-info.
+    03  max-rec-size                             pic 9(10).
+    03  l-comma-1                                pic x value ",".
+    03  min-rec-size                             pic 9(10).
+    03  l-comma-2                                pic x value ",".
+    03  num-keys                                 pic 9(3).
+    03  l-end                                    pic x value low-values.
+
+01  physical-info.
+    03  block-multiple                           pic 99.
+    03  p-comma-1                                pic x value ",".
+    03  pre-allocation-amount                    pic 9(7).
+    03  p-comma-2                                pic x value ",".
+    03  extension-amount                         pic 9(7).
+    03  p-comma-3                                pic x value ",".
+    03  compression-factor                       pic 999.
+    03  p-comma-4                                pic x value ",".
+    03  encrypted-flag                           pic 9.
+    03  p-end                                    pic x value low-values.
+
+01  key-info.
+    03  key-data.
+        05  num-segs                             pic 99.
+        05  k-comma-1                            pic x value ",".
+        05  dups-allowed                         pic 9.
+        05  seg-info
+            occurs max-segs times.
+            07  k-comma-2                        pic x value ",".
+            07  key-size                         pic 9(3).
+            07  k-comma-3                        pic x value ",".
+            07  key-offset                       pic 9(10).
+    03  k-end                                    pic x value low-values.
+
+01  record-count-info.
+    03  number-of-records                        pic 9(10).
+    03  number-of-records-end                    pic x.
+
+01  file-segment-count-info.
+    03  data-segments                            pic 9(5).
+    03  fs-count-comma                           pic x value ",".
+    03  index-segments                           pic 9(5).
+    03  fs-count-end                             pic x value low-values.
+   
+01  file-segment-info.
+    03  fs-name                                  pic x(127).
+    03  fs-name-end                              pic x value low-values.
+    03  fs-size                                  pic 9(10).
+    03  fs-size-end                              pic x value low-values.
+    03  fs-type                                  signed-short.
+        88  fs-data                              value 255.
+        88  fs-index                             value 254.
+    03  fs-segment-number                        unsigned-short.
+
+01  file-size-info.
+    03  whole-file-size                          pic 9(15).
+    03  whole-file-size-end                      pic x value low-values.
+
+01  file-version-info.
+    03  file-version                             pic 999.
+    03  file-version-end                         pic x value low-values.
+
+78  fa-mass-update                               value 1.
+78  fa-remote                                    value 2.
+
+       >>SOURCE FORMAT PREVIOUS

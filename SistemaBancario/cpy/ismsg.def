@@ -1,0 +1,36 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2019 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+01 extend-stat.
+   03 primary-error         pic x(2).
+   03 secondary-error       pic x(10).
+01 text-message             pic x(40).
+01 w-is-show-msg.
+   05 is-call-fail-code     pic x(2).
+   05 is-msg-id             pic 9(3).
+   05 is-err-file           pic x(30).
+
+78 is-length value 80.
+78 is-full-len value 250.
+
+01 is-msg-box.
+   05 is-icon-type          pic 9 value 1.
+   05 is-default-button     pic 9 value 1.
+   05 is-button-type        pic 9 value 1.
+   05 is-return-value       pic 9 value 1.
+   05 is-msg-1              pic x(is-length).
+   05 is-msg-2              pic x(is-length).
+   05 is-msg-3              pic x(is-length).
+   05 is-msg-text           pic x(is-full-len).
+   05 is-text-ptr           signed-short.
+   05 is-size               signed-short.
+
+77 is-idx1                  pic 9(3).
+77 is-idx2                  pic 9(3).
+77 is-idx3                  pic 9(3).
+
+       >>SOURCE FORMAT PREVIOUS

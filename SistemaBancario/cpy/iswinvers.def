@@ -1,0 +1,21 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+01  winversion-data.
+    03  win-major-version                        pic x comp-x.
+    03  win-minor-version                        pic x comp-x.
+    03  win-platform                             pic x comp-x.
+        88  platform-win-31                      value 1.
+        88  platform-win-95                      value 2.
+        88  platform-win-9x                      value 2.
+        88  platform-win-nt                      value 3.
+    03  win-wordsize                             pic x comp-x.
+        88  win-wordsize-16                      value 1.
+        88  win-wordsize-32                      value 2.
+        88  win-wordsize-64                      value 3.
+
+       >>SOURCE FORMAT PREVIOUS

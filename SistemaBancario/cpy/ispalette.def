@@ -1,0 +1,51 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  wpalette-supported                           value 1.
+78  wpalette-num-colors                          value 2.
+78  wpalette-get-color                           value 3.
+78  wpalette-set-color                           value 4.
+78  wpalette-update                              value 5.
+78  wpalette-choose-color                        value 6.
+78  wpalette-set-user-color                      value 7.
+78  wpalette-map-colors                          value 8.
+78  wpalette-reset-colors                        value 9.
+
+78  wpchoose-use-default                         value 1.
+
+78  wpuser-color-3d                              value 1.
+78  wpuser-color-background                      value 2.
+
+78  wpal-no-support                              value 0.
+78  wpal-palette-supported                       value 1.
+78  wpal-full-support                            value 2.
+
+78  wperr-unsupported                            value 0.
+78  wperr-bad-arg                                value -1.
+78  wperr-cancelled                              value -2.
+
+01  wpalette-data.
+    03  wpal-color-id                            pic x comp-x.
+    03  wpal-flags    redefines wpal-color-id    pic x comp-x.
+    03  wpal-red                                 pic x comp-x.
+    03  wpal-user-color-id   redefines wpal-red  pic x comp-x.
+    03  wpal-green                               pic x comp-x.
+    03  wpal-blue                                pic x comp-x.
+
+01  wpalette-original-colors.
+    03  wpal-original-color occurs dynamic.
+        05  wpal-original-red                    pic x comp-x.
+        05  wpal-original-green                  pic x comp-x.
+        05  wpal-original-blue                   pic x comp-x.
+
+01  wpalette-new-colors.
+    03  wpal-new-color occurs dynamic.
+        05  wpal-new-red                         pic x comp-x.
+        05  wpal-new-green                       pic x comp-x.
+        05  wpal-new-blue                        pic x comp-x.
+
+       >>SOURCE FORMAT PREVIOUS

@@ -1,0 +1,23 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+01  event-status is special-names event status.
+    03  event-type                               pic x(4) comp-x.
+    03  event-window-handle                      handle of window.
+    03  event-control-handle                     handle.
+    03  event-control-id                         pic xx comp-x.
+    03  event-data-1                             signed-short.
+    03  event-data-2                             signed-long.
+    03  event-action                             pic x comp-x.
+
+01  screen-control is special-names screen control.
+    03  accept-control                           pic 9.
+    03  control-value                            pic 999.
+    03  control-handle                           handle.
+    03  control-id                               pic xx comp-x.
+
+       >>SOURCE FORMAT PREVIOUS

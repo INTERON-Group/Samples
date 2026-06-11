@@ -1,0 +1,643 @@
+*>compiler version: isCOBOL release 2026 R1 build#1173.6-20260416-41920
+*>source file name: C:\source\Samples\SistemaBancario\source\SISTEMA-BANCARIO.cbl
+*>date generated  : Thu Jun 11 10:39:02 BRT 2026
+*>compiler options: -dx -oe -sp=cpy;screenpgm;fdsl -esme=100 -smat -od=C:/source/Samples/SistemaBancario/output -jj -eo=C:/source/Samples/SistemaBancario/errs -b -cghv -d -g -lo=C:/source/Samples/SistemaBancario/list -tasks
+*>iscobol.compiler.javac: C:\Program Files\Zulu\zulu-21\bin\javac.exe
+*>================================================================*
+*> SISTEMA-BANCARIO.cbl                                           *
+*> Sistema Bancario Simplificado - isCOBOL 2026R1                 *
+*> Autor  : INTERON                                   *            
+*> Versao : 3.0 - Correcao de buffer/fluxo de telas               *
+*> Data   : 2026                                                   
+*>================================================================*
+                                                                 
+IDENTIFICATION DIVISION.                                         
+PROGRAM-ID. SISTEMA-BANCARIO.                                    
+AUTHOR. INTERON.                                                 
+DATE-WRITTEN. 2026.                                              
+                                                                 
+*>================================================================*
+ENVIRONMENT DIVISION.                                            
+*>================================================================*
+CONFIGURATION SECTION.                                           
+SOURCE-COMPUTER. IBM-PC.                                         
+OBJECT-COMPUTER. IBM-PC.                                         
+                                                                 
+SPECIAL-NAMES.                                                   
+    DECIMAL-POINT IS COMMA.                                      
+                                                                 
+*>================================================================*
+DATA DIVISION.                                                   
+*>================================================================*
+WORKING-STORAGE SECTION.                                         
+                                                                 
+*>----------------------------------------------------------------*
+*> Controle Geral                                                  
+*>----------------------------------------------------------------*
+01 WS-CONTROLE.                                                  
+   05 WS-OPCAO             PIC X(2)   VALUE SPACES.              
+   05 WS-CONTINUAR         PIC X      VALUE "S".                 
+   05 WS-TOTAL-CONTAS      PIC 9(3)   VALUE 0.                   
+   05 WS-PROXIMO-CONTA     PIC 9(6)   VALUE 1000.                
+   05 WS-FOUND             PIC X      VALUE "N".                 
+   05 WS-IDX               PIC 9(3)   VALUE 0.                   
+   05 WS-IDX-HIST          PIC 9(3)   VALUE 0.                   
+   05 WS-IDX-ORIGEM        PIC 9(3)   VALUE 0.                   
+   05 WS-IDX-DESTINO       PIC 9(3)   VALUE 0.                   
+   05 WS-AUX-CONTADOR      PIC 9(3)   VALUE 0.                   
+   05 WS-LIN-WIN           PIC 9(3)   VALUE 0.                   
+*>   Campo buffer: drena residuos de ENTER apos ACCEPTs numericos  
+   05 WS-BUFFER            PIC X(80)  VALUE SPACES.              
+                                                                 
+*>----------------------------------------------------------------*
+*> Estrutura de Contas - OCCURS 100                               *
+*>----------------------------------------------------------------*
+01 WS-CONTAS.                                                    
+   05 WS-CONTA OCCURS 100 TIMES.                                 
+      10 WS-NUM-CONTA      PIC 9(6).                             
+      10 WS-NOME-TITULAR   PIC X(40).                            
+      10 WS-CPF            PIC X(14).                            
+      10 WS-SALDO          PIC 9(12)V99.                         
+      10 WS-ATIVO          PIC X.                                
+      10 WS-QTD-HIST       PIC 9(3).                             
+      10 WS-HISTORICO OCCURS 50 TIMES.                           
+         15 WS-HIST-TIPO   PIC X(25).                            
+         15 WS-HIST-VALOR  PIC 9(12)V99.                         
+         15 WS-HIST-SALDO  PIC 9(12)V99.                         
+                                                                 
+*>----------------------------------------------------------------*
+*> Campos de Entrada                                              *
+*>----------------------------------------------------------------*
+01 WS-ENTRADA.                                                   
+   05 WS-IN-NUM-CONTA      PIC 9(6)     VALUE 0.                 
+   05 WS-IN-NOME           PIC X(40)    VALUE SPACES.            
+   05 WS-IN-CPF            PIC X(14)    VALUE SPACES.            
+   05 WS-IN-SALDO-INI      PIC 9(12)V99 VALUE 0.                 
+   05 WS-IN-VALOR          PIC 9(12)V99 VALUE 0.                 
+   05 WS-IN-CONTA-DEST     PIC 9(6)     VALUE 0.                 
+   05 WS-IN-TIPO-MOV       PIC X(25)    VALUE SPACES.            
+                                                                 
+*>----------------------------------------------------------------*
+*> Campos de Formatacao                                           *
+*>----------------------------------------------------------------*
+01 WS-DISPLAY.                                                   
+   05 WS-DISP-SALDO        PIC ZZZ.ZZZ.ZZ9,99.                   
+   05 WS-DISP-VALOR        PIC ZZZ.ZZZ.ZZ9,99.                   
+   05 WS-DISP-CONTA        PIC 999999.                           
+   05 WS-DISP-LINHA        PIC X(72)    VALUE SPACES.            
+                                                                 
+*>----------------------------------------------------------------*
+*> Campos da Janela Grafica                                       *
+*>----------------------------------------------------------------*
+01 WS-JANELA.                                                    
+   05 WS-WIN-TITULO        PIC X(40)                             
+                           VALUE " EXTRATO BANCARIO ".           
+   05 WS-WIN-LIN           PIC 9(3)   VALUE 2.                   
+   05 WS-WIN-COL           PIC 9(3)   VALUE 3.                   
+   05 WS-WIN-LINHAS        PIC 9(3)   VALUE 24.                  
+   05 WS-WIN-COLUNAS       PIC 9(3)   VALUE 74.                  
+                                                                 
+*>================================================================*
+PROCEDURE DIVISION.                                              
+*>================================================================*
+                                                                 
+*>----------------------------------------------------------------*
+*> INICIALIZAR                                                    *
+*>----------------------------------------------------------------*
+INICIALIZAR.                                                     
+    PERFORM INICIALIZAR-TABELAS                                  
+    MOVE "S"    TO WS-CONTINUAR                                  
+    PERFORM MENU-PRINCIPAL                                       
+        UNTIL WS-CONTINUAR = "N"                                 
+    STOP RUN.                                                    
+                                                                 
+*>----------------------------------------------------------------*
+*> INICIALIZAR-TABELAS                                            *
+*>----------------------------------------------------------------*
+INICIALIZAR-TABELAS.                                             
+    MOVE 0    TO WS-TOTAL-CONTAS                                 
+    MOVE 1000 TO WS-PROXIMO-CONTA                                
+    PERFORM VARYING WS-IDX FROM 1 BY 1                           
+        UNTIL WS-IDX > 100                                       
+        MOVE 0      TO WS-NUM-CONTA(WS-IDX)                      
+        MOVE SPACES TO WS-NOME-TITULAR(WS-IDX)                   
+        MOVE SPACES TO WS-CPF(WS-IDX)                            
+        MOVE 0      TO WS-SALDO(WS-IDX)                          
+        MOVE "N"    TO WS-ATIVO(WS-IDX)                          
+        MOVE 0      TO WS-QTD-HIST(WS-IDX)                       
+        PERFORM VARYING WS-IDX-HIST FROM 1 BY 1                  
+            UNTIL WS-IDX-HIST > 50                               
+            MOVE SPACES TO WS-HIST-TIPO(WS-IDX, WS-IDX-HIST)     
+            MOVE 0      TO WS-HIST-VALOR(WS-IDX, WS-IDX-HIST)    
+            MOVE 0      TO WS-HIST-SALDO(WS-IDX, WS-IDX-HIST)    
+        END-PERFORM                                              
+    END-PERFORM.                                                 
+                                                                 
+*>================================================================*
+*> MENU-PRINCIPAL                                                 *
+*>================================================================*
+MENU-PRINCIPAL.                                                  
+    PERFORM LIMPAR-TELA                                          
+*>    Limpa a opcao antes de ler para evitar residuos de buffer    
+    MOVE SPACES TO WS-OPCAO                                      
+    DISPLAY "==================================================="
+    DISPLAY "      SISTEMA BANCARIO ISCOBOL 2026R1              "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    DISPLAY "  1 - Criar Conta"                                  
+    DISPLAY "  2 - Consultar Conta"                              
+    DISPLAY "  3 - Depositar"                                    
+    DISPLAY "  4 - Sacar"                                        
+    DISPLAY "  5 - Transferir"                                   
+    DISPLAY "  6 - Extrato"                                      
+    DISPLAY "  7 - Listar Contas"                                
+    DISPLAY "  0 - Sair"                                         
+    DISPLAY " "                                                  
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    DISPLAY "  Opcao: " WITH NO ADVANCING                        
+    ACCEPT WS-OPCAO                                              
+    DISPLAY " "                                                  
+    EVALUATE WS-OPCAO(1:1)                                       
+        WHEN "1"                                                 
+            PERFORM CRIAR-CONTA                                  
+        WHEN "2"                                                 
+            PERFORM CONSULTAR-CONTA                              
+        WHEN "3"                                                 
+            PERFORM DEPOSITAR                                    
+        WHEN "4"                                                 
+            PERFORM SACAR                                        
+        WHEN "5"                                                 
+            PERFORM TRANSFERIR                                   
+        WHEN "6"                                                 
+            PERFORM EXIBIR-EXTRATO                               
+        WHEN "7"                                                 
+            PERFORM LISTAR-CONTAS                                
+        WHEN "0"                                                 
+            DISPLAY "  Encerrando o sistema. Obrigado!"          
+            DISPLAY " "                                          
+            MOVE "N" TO WS-CONTINUAR                             
+        WHEN OTHER                                               
+            DISPLAY "  [ERRO] Opcao invalida. Tente novamente."  
+            PERFORM AGUARDAR-ENTER                               
+    END-EVALUATE.                                                
+                                                                 
+*>================================================================*
+*> CRIAR-CONTA                                                    *
+*>================================================================*
+CRIAR-CONTA.                                                     
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "            CRIAR NOVA CONTA                       "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    IF WS-TOTAL-CONTAS >= 100                                    
+        DISPLAY "  [ERRO] Limite de 100 contas atingido."        
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO CRIAR-CONTA-FIM                                    
+    END-IF                                                       
+    MOVE SPACES TO WS-IN-NOME                                    
+    DISPLAY "  Nome do Titular : " WITH NO ADVANCING             
+    ACCEPT WS-IN-NOME                                            
+    IF WS-IN-NOME = SPACES                                       
+        DISPLAY "  [ERRO] Nome nao pode ser vazio."              
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO CRIAR-CONTA-FIM                                    
+    END-IF                                                       
+    MOVE SPACES TO WS-IN-CPF                                     
+    DISPLAY "  CPF             : " WITH NO ADVANCING             
+    ACCEPT WS-IN-CPF                                             
+    IF WS-IN-CPF = SPACES                                        
+        DISPLAY "  [ERRO] CPF nao pode ser vazio."               
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO CRIAR-CONTA-FIM                                    
+    END-IF                                                       
+    MOVE 0 TO WS-IN-SALDO-INI                                    
+    DISPLAY "  Saldo Inicial   : " WITH NO ADVANCING             
+    ACCEPT WS-IN-SALDO-INI                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    IF WS-IN-SALDO-INI < 0                                       
+        DISPLAY "  [ERRO] Saldo inicial nao pode ser negativo."  
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO CRIAR-CONTA-FIM                                    
+    END-IF                                                       
+    ADD 1 TO WS-TOTAL-CONTAS                                     
+    MOVE WS-PROXIMO-CONTA  TO WS-NUM-CONTA(WS-TOTAL-CONTAS)      
+    MOVE WS-IN-NOME        TO WS-NOME-TITULAR(WS-TOTAL-CONTAS)   
+    MOVE WS-IN-CPF         TO WS-CPF(WS-TOTAL-CONTAS)            
+    MOVE WS-IN-SALDO-INI   TO WS-SALDO(WS-TOTAL-CONTAS)          
+    MOVE "S"               TO WS-ATIVO(WS-TOTAL-CONTAS)          
+    MOVE 0                 TO WS-QTD-HIST(WS-TOTAL-CONTAS)       
+    ADD 1 TO WS-PROXIMO-CONTA                                    
+    IF WS-IN-SALDO-INI > 0                                       
+        MOVE WS-TOTAL-CONTAS TO WS-IDX                           
+        MOVE "Saldo Inicial"  TO WS-IN-TIPO-MOV                  
+        PERFORM REGISTRAR-MOVIMENTO                              
+    END-IF                                                       
+    MOVE WS-NUM-CONTA(WS-TOTAL-CONTAS) TO WS-DISP-CONTA          
+    MOVE WS-SALDO(WS-TOTAL-CONTAS)      TO WS-DISP-SALDO         
+    DISPLAY " "                                                  
+    DISPLAY "  ================================"                 
+    DISPLAY "  CONTA CRIADA COM SUCESSO!"                        
+    DISPLAY "  Numero : " WS-DISP-CONTA                          
+    DISPLAY "  Titular: " WS-IN-NOME                             
+    DISPLAY "  CPF    : " WS-IN-CPF                              
+    DISPLAY "  Saldo  : R$ " WS-DISP-SALDO                       
+    DISPLAY "  ================================"                 
+    PERFORM AGUARDAR-ENTER.                                      
+CRIAR-CONTA-FIM.                                                 
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> CONSULTAR-CONTA                                                *
+*>================================================================*
+CONSULTAR-CONTA.                                                 
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "            CONSULTAR CONTA                        "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    MOVE 0 TO WS-IN-NUM-CONTA                                    
+    DISPLAY "  Numero da Conta : " WITH NO ADVANCING             
+    ACCEPT WS-IN-NUM-CONTA                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta nao encontrada."                 
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO CONSULTAR-CONTA-FIM                                
+    END-IF                                                       
+    MOVE WS-SALDO(WS-IDX)     TO WS-DISP-SALDO                   
+    MOVE WS-NUM-CONTA(WS-IDX) TO WS-DISP-CONTA                   
+    DISPLAY " "                                                  
+    DISPLAY "  ================================"                 
+    DISPLAY "  DADOS DA CONTA"                                   
+    DISPLAY "  ================================"                 
+    DISPLAY "  Conta  : " WS-DISP-CONTA                          
+    DISPLAY "  Titular: " WS-NOME-TITULAR(WS-IDX)                
+    DISPLAY "  CPF    : " WS-CPF(WS-IDX)                         
+    DISPLAY "  Saldo  : R$ " WS-DISP-SALDO                       
+    DISPLAY "  ================================"                 
+    PERFORM AGUARDAR-ENTER.                                      
+CONSULTAR-CONTA-FIM.                                             
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> DEPOSITAR                                                      *
+*>================================================================*
+DEPOSITAR.                                                       
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "                  DEPOSITO                         "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    MOVE 0 TO WS-IN-NUM-CONTA                                    
+    DISPLAY "  Numero da Conta  : " WITH NO ADVANCING            
+    ACCEPT WS-IN-NUM-CONTA                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta nao encontrada."                 
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO DEPOSITAR-FIM                                      
+    END-IF                                                       
+    MOVE 0 TO WS-IN-VALOR                                        
+    DISPLAY "  Valor do Deposito: " WITH NO ADVANCING            
+    ACCEPT WS-IN-VALOR                                           
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    IF WS-IN-VALOR <= 0                                          
+        DISPLAY "  [ERRO] Valor deve ser maior que zero."        
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO DEPOSITAR-FIM                                      
+    END-IF                                                       
+    ADD WS-IN-VALOR TO WS-SALDO(WS-IDX)                          
+    MOVE "Deposito" TO WS-IN-TIPO-MOV                            
+    PERFORM REGISTRAR-MOVIMENTO                                  
+    MOVE WS-SALDO(WS-IDX) TO WS-DISP-SALDO                       
+    MOVE WS-IN-VALOR       TO WS-DISP-VALOR                      
+    DISPLAY " "                                                  
+    DISPLAY "  Deposito de R$ " WS-DISP-VALOR " efetuado!"       
+    DISPLAY "  Novo Saldo : R$ " WS-DISP-SALDO                   
+    PERFORM AGUARDAR-ENTER.                                      
+DEPOSITAR-FIM.                                                   
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> SACAR                                                          *
+*>================================================================*
+SACAR.                                                           
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "                    SAQUE                          "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    MOVE 0 TO WS-IN-NUM-CONTA                                    
+    DISPLAY "  Numero da Conta  : " WITH NO ADVANCING            
+    ACCEPT WS-IN-NUM-CONTA                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta nao encontrada."                 
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO SACAR-FIM                                          
+    END-IF                                                       
+    MOVE 0 TO WS-IN-VALOR                                        
+    DISPLAY "  Valor do Saque   : " WITH NO ADVANCING            
+    ACCEPT WS-IN-VALOR                                           
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    IF WS-IN-VALOR <= 0                                          
+        DISPLAY "  [ERRO] Valor deve ser maior que zero."        
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO SACAR-FIM                                          
+    END-IF                                                       
+    IF WS-IN-VALOR > WS-SALDO(WS-IDX)                            
+        MOVE WS-SALDO(WS-IDX) TO WS-DISP-SALDO                   
+        DISPLAY "  [ERRO] Saldo insuficiente."                   
+        DISPLAY "  Saldo disponivel: R$ " WS-DISP-SALDO          
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO SACAR-FIM                                          
+    END-IF                                                       
+    SUBTRACT WS-IN-VALOR FROM WS-SALDO(WS-IDX)                   
+    MOVE "Saque" TO WS-IN-TIPO-MOV                               
+    PERFORM REGISTRAR-MOVIMENTO                                  
+    MOVE WS-SALDO(WS-IDX) TO WS-DISP-SALDO                       
+    MOVE WS-IN-VALOR       TO WS-DISP-VALOR                      
+    DISPLAY " "                                                  
+    DISPLAY "  Saque de R$ " WS-DISP-VALOR " efetuado!"          
+    DISPLAY "  Novo Saldo : R$ " WS-DISP-SALDO                   
+    PERFORM AGUARDAR-ENTER.                                      
+SACAR-FIM.                                                       
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> TRANSFERIR                                                     *
+*>================================================================*
+TRANSFERIR.                                                      
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "               TRANSFERENCIA                       "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    MOVE 0 TO WS-IN-NUM-CONTA                                    
+    DISPLAY "  Conta de Origem  : " WITH NO ADVANCING            
+    ACCEPT WS-IN-NUM-CONTA                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta de origem nao encontrada."       
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO TRANSFERIR-FIM                                     
+    END-IF                                                       
+    MOVE WS-IDX TO WS-IDX-ORIGEM                                 
+    MOVE 0 TO WS-IN-CONTA-DEST                                   
+    DISPLAY "  Conta de Destino : " WITH NO ADVANCING            
+    ACCEPT WS-IN-CONTA-DEST                                      
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    IF WS-IN-CONTA-DEST = WS-NUM-CONTA(WS-IDX-ORIGEM)            
+        DISPLAY "  [ERRO] Origem e destino nao podem ser iguais."
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO TRANSFERIR-FIM                                     
+    END-IF                                                       
+    MOVE WS-IN-CONTA-DEST TO WS-IN-NUM-CONTA                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta de destino nao encontrada."      
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO TRANSFERIR-FIM                                     
+    END-IF                                                       
+    MOVE WS-IDX TO WS-IDX-DESTINO                                
+    MOVE 0 TO WS-IN-VALOR                                        
+    DISPLAY "  Valor            : " WITH NO ADVANCING            
+    ACCEPT WS-IN-VALOR                                           
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    IF WS-IN-VALOR <= 0                                          
+        DISPLAY "  [ERRO] Valor deve ser maior que zero."        
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO TRANSFERIR-FIM                                     
+    END-IF                                                       
+    IF WS-IN-VALOR > WS-SALDO(WS-IDX-ORIGEM)                     
+        MOVE WS-SALDO(WS-IDX-ORIGEM) TO WS-DISP-SALDO            
+        DISPLAY "  [ERRO] Saldo insuficiente na conta de origem."
+        DISPLAY "  Saldo disponivel: R$ " WS-DISP-SALDO          
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO TRANSFERIR-FIM                                     
+    END-IF                                                       
+    SUBTRACT WS-IN-VALOR FROM WS-SALDO(WS-IDX-ORIGEM)            
+    MOVE WS-IDX-ORIGEM     TO WS-IDX                             
+    MOVE "Transf. Enviada"  TO WS-IN-TIPO-MOV                    
+    PERFORM REGISTRAR-MOVIMENTO                                  
+    ADD WS-IN-VALOR TO WS-SALDO(WS-IDX-DESTINO)                  
+    MOVE WS-IDX-DESTINO    TO WS-IDX                             
+    MOVE "Transf. Recebida" TO WS-IN-TIPO-MOV                    
+    PERFORM REGISTRAR-MOVIMENTO                                  
+    MOVE WS-IN-VALOR              TO WS-DISP-VALOR               
+    MOVE WS-SALDO(WS-IDX-ORIGEM)  TO WS-DISP-SALDO               
+    DISPLAY " "                                                  
+    DISPLAY "  Transferencia de R$ " WS-DISP-VALOR " realizada!" 
+    DISPLAY "  Saldo atual da origem: R$ " WS-DISP-SALDO         
+    PERFORM AGUARDAR-ENTER.                                      
+TRANSFERIR-FIM.                                                  
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> EXIBIR-EXTRATO                                                 *
+*> Utiliza DISPLAY WINDOW do isCOBOL para janela grafica         * 
+*>================================================================*
+EXIBIR-EXTRATO.                                                  
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "  Numero da Conta para Extrato: " WITH NO ADVANCING 
+    ACCEPT WS-IN-NUM-CONTA                                       
+*>    Drena buffer apos ACCEPT numerico                            
+    MOVE SPACES TO WS-BUFFER                                     
+    PERFORM LOCALIZAR-CONTA                                      
+    IF WS-FOUND = "N"                                            
+        DISPLAY "  [ERRO] Conta nao encontrada."                 
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO EXIBIR-EXTRATO-FIM                                 
+    END-IF                                                       
+*>    Abrir janela grafica flutuante                               
+    DISPLAY WINDOW                                               
+        LINE    WS-WIN-LIN                                       
+        COLUMN  WS-WIN-COL                                       
+        LINES   WS-WIN-LINHAS                                    
+        SIZE    WS-WIN-COLUNAS                                   
+        TITLE   WS-WIN-TITULO                                    
+        ERASE                                                    
+    MOVE WS-NUM-CONTA(WS-IDX) TO WS-DISP-CONTA                   
+    MOVE WS-SALDO(WS-IDX)     TO WS-DISP-SALDO                   
+    DISPLAY "  ==========================================="      
+        LINE 1 COLUMN 1                                          
+    DISPLAY "        EXTRATO DA CONTA                   "        
+        LINE 2 COLUMN 1                                          
+    DISPLAY "  ==========================================="      
+        LINE 3 COLUMN 1                                          
+    DISPLAY " "                                                  
+        LINE 4 COLUMN 1                                          
+    DISPLAY "  Titular : "                                       
+        LINE 5 COLUMN 1 WITH NO ADVANCING                        
+    DISPLAY WS-NOME-TITULAR(WS-IDX)                              
+    DISPLAY "  Conta   : "                                       
+        LINE 6 COLUMN 1 WITH NO ADVANCING                        
+    DISPLAY WS-DISP-CONTA                                        
+    DISPLAY "  CPF     : "                                       
+        LINE 7 COLUMN 1 WITH NO ADVANCING                        
+    DISPLAY WS-CPF(WS-IDX)                                       
+    DISPLAY "  Saldo   : R$ "                                    
+        LINE 8 COLUMN 1 WITH NO ADVANCING                        
+    DISPLAY WS-DISP-SALDO                                        
+    DISPLAY "  -------------------------------------------"      
+        LINE 9 COLUMN 1                                          
+    DISPLAY "  HISTORICO DE MOVIMENTACOES"                       
+        LINE 10 COLUMN 1                                         
+    DISPLAY "  -------------------------------------------"      
+        LINE 11 COLUMN 1                                         
+    MOVE 0 TO WS-AUX-CONTADOR                                    
+    IF WS-QTD-HIST(WS-IDX) = 0                                   
+        DISPLAY "  Nenhuma movimentacao registrada."             
+            LINE 12 COLUMN 1                                     
+        MOVE 1 TO WS-AUX-CONTADOR                                
+    ELSE                                                         
+        PERFORM VARYING WS-IDX-HIST FROM 1 BY 1                  
+            UNTIL WS-IDX-HIST > WS-QTD-HIST(WS-IDX)              
+            ADD 1 TO WS-AUX-CONTADOR                             
+            COMPUTE WS-LIN-WIN = 11 + WS-AUX-CONTADOR            
+            MOVE WS-HIST-VALOR(WS-IDX, WS-IDX-HIST)              
+                TO WS-DISP-VALOR                                 
+            MOVE WS-HIST-SALDO(WS-IDX, WS-IDX-HIST)              
+                TO WS-DISP-SALDO                                 
+            MOVE SPACES TO WS-DISP-LINHA                         
+            STRING                                               
+                "  "                                             
+                WS-HIST-TIPO(WS-IDX, WS-IDX-HIST)                
+                " R$"                                            
+                WS-DISP-VALOR                                    
+                " Saldo:R$"                                      
+                WS-DISP-SALDO                                    
+                DELIMITED SIZE                                   
+                INTO WS-DISP-LINHA                               
+            END-STRING                                           
+            DISPLAY WS-DISP-LINHA                                
+                LINE WS-LIN-WIN COLUMN 1                         
+        END-PERFORM                                              
+    END-IF                                                       
+    COMPUTE WS-LIN-WIN = 13 + WS-AUX-CONTADOR                    
+    DISPLAY "  -------------------------------------------"      
+        LINE WS-LIN-WIN COLUMN 1                                 
+    COMPUTE WS-LIN-WIN = WS-LIN-WIN + 1                          
+    DISPLAY "  Pressione ENTER para fechar..."                   
+        LINE WS-LIN-WIN COLUMN 1                                 
+*>    ACCEPT alfanumerico - nao gera residuo numerico no buffer    
+    ACCEPT WS-BUFFER LINE WS-LIN-WIN COLUMN 1                    
+    MOVE SPACES TO WS-BUFFER                                     
+*>    Fechar janela grafica                                        
+    DISPLAY WINDOW ERASE.                                        
+EXIBIR-EXTRATO-FIM.                                              
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> LISTAR-CONTAS                                                  *
+*>================================================================*
+LISTAR-CONTAS.                                                   
+    PERFORM LIMPAR-TELA                                          
+    DISPLAY "==================================================="
+    DISPLAY "              LISTA DE CONTAS                      "
+    DISPLAY "==================================================="
+    DISPLAY " "                                                  
+    IF WS-TOTAL-CONTAS = 0                                       
+        DISPLAY "  Nenhuma conta cadastrada."                    
+        PERFORM AGUARDAR-ENTER                                   
+        GO TO LISTAR-CONTAS-FIM                                  
+    END-IF                                                       
+    DISPLAY "  Conta    Titular                   Saldo"         
+    DISPLAY "  -------- ------------------------- ---------------
+    PERFORM VARYING WS-IDX FROM 1 BY 1                           
+        UNTIL WS-IDX > WS-TOTAL-CONTAS                           
+        IF WS-ATIVO(WS-IDX) = "S"                                
+            MOVE WS-NUM-CONTA(WS-IDX) TO WS-DISP-CONTA           
+            MOVE WS-SALDO(WS-IDX)      TO WS-DISP-SALDO          
+            DISPLAY "  " WS-DISP-CONTA                           
+                "  " WS-NOME-TITULAR(WS-IDX)(1:25)               
+                "  R$ " WS-DISP-SALDO                            
+        END-IF                                                   
+    END-PERFORM                                                  
+    DISPLAY " "                                                  
+    DISPLAY "  Total de contas ativas: " WS-TOTAL-CONTAS         
+    PERFORM AGUARDAR-ENTER.                                      
+LISTAR-CONTAS-FIM.                                               
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> LOCALIZAR-CONTA                                                *
+*> Entrada : WS-IN-NUM-CONTA                                     * 
+*> Saida   : WS-FOUND (S/N), WS-IDX (indice ou 0 se nao achou)  *  
+*>================================================================*
+LOCALIZAR-CONTA.                                                 
+    MOVE "N" TO WS-FOUND                                         
+    MOVE 0   TO WS-IDX                                           
+    PERFORM VARYING WS-AUX-CONTADOR FROM 1 BY 1                  
+        UNTIL WS-AUX-CONTADOR > WS-TOTAL-CONTAS                  
+            OR WS-FOUND = "S"                                    
+        IF WS-NUM-CONTA(WS-AUX-CONTADOR) = WS-IN-NUM-CONTA       
+            AND WS-ATIVO(WS-AUX-CONTADOR) = "S"                  
+*>            Salva o indice DENTRO do IF, antes do VARYING        
+*>            incrementar WS-AUX-CONTADOR ao retornar ao UNTIL     
+            MOVE WS-AUX-CONTADOR TO WS-IDX                       
+            MOVE "S"             TO WS-FOUND                     
+        END-IF                                                   
+    END-PERFORM.                                                 
+                                                                 
+*>================================================================*
+*> REGISTRAR-MOVIMENTO                                            *
+*> Entrada : WS-IDX         - indice da conta                   *  
+*>           WS-IN-VALOR    - valor da operacao                  * 
+*>           WS-IN-TIPO-MOV - descricao da operacao              * 
+*>================================================================*
+REGISTRAR-MOVIMENTO.                                             
+    IF WS-QTD-HIST(WS-IDX) >= 50                                 
+        DISPLAY "  [AVISO] Limite de historico atingido."        
+        GO TO REGISTRAR-MOVIMENTO-FIM                            
+    END-IF                                                       
+    ADD 1 TO WS-QTD-HIST(WS-IDX)                                 
+    MOVE WS-QTD-HIST(WS-IDX) TO WS-IDX-HIST                      
+    MOVE WS-IN-TIPO-MOV                                          
+        TO WS-HIST-TIPO(WS-IDX, WS-IDX-HIST)                     
+    MOVE WS-IN-VALOR                                             
+        TO WS-HIST-VALOR(WS-IDX, WS-IDX-HIST)                    
+    MOVE WS-SALDO(WS-IDX)                                        
+        TO WS-HIST-SALDO(WS-IDX, WS-IDX-HIST).                   
+REGISTRAR-MOVIMENTO-FIM.                                         
+    CONTINUE.                                                    
+                                                                 
+*>================================================================*
+*> LIMPAR-TELA                                                    *
+*>================================================================*
+LIMPAR-TELA.                                                     
+    DISPLAY SPACE                                                
+        LINE 1 COLUMN 1                                          
+        ERASE EOS                                                
+    DISPLAY " ".                                                 
+                                                                 
+*>================================================================*
+*> AGUARDAR-ENTER                                                 *
+*> Usa PIC X(80) para drenar qualquer residuo do buffer          * 
+*>================================================================*
+AGUARDAR-ENTER.                                                  
+    DISPLAY " "                                                  
+    DISPLAY "  Pressione ENTER para continuar..."                
+        WITH NO ADVANCING                                        
+    ACCEPT WS-BUFFER                                             
+    MOVE SPACES TO WS-BUFFER.                                    
+                                                                 
+*>================================================================*
+*> FIM DO PROGRAMA                                                *
+*>================================================================*
+*> --E: #287 Continuation character expected, end of literal assumed "  -------- ------------------------- ---------------; file = SISTEMA-BANCARIO.cbl, line = 556, col 12

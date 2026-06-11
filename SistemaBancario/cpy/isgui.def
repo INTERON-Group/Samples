@@ -1,0 +1,560 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+78  mb-ok                                        value 1.
+78  mb-yes-no                                    value 2.
+78  mb-ok-cancel                                 value 3.
+78  mb-yes-no-cancel                             value 4.
+78  mb-retry-cancel                              value 5.
+78  mb-abort-retry-ignore                        value 6.
+78  mb-cancel-retry-continue                     value 7.
+
+78  mb-yes                                       value 1.
+78  mb-no                                        value 2.
+78  mb-cancel                                    value 3.
+78  mb-abort                                     value 4.
+78  mb-retry                                     value 5.
+78  mb-ignore                                    value 6.
+78  mb-continue                                  value 7.
+
+78  mb-default-icon                              value 1.
+78  mb-warning-icon                              value 2.
+78  mb-error-icon                                value 3.
+
+78  wbitmap-display                              value 1.
+78  wbitmap-destroy                              value 2.
+78  wbitmap-load                                 value 3.
+78  wbitmap-load-imagelist                       value 5.
+78  wbitmap-destroy-imagelist                    value 6.
+78  wbitmap-load-from-client                     value 20.
+78  wbitmap-load-symbol-font                     value 21.
+78  wbitmap-load-symbol-font-ex                  value 22.
+78  wbitmap-text-box                             value 23.
+78  wbitmap-barcode-box                          value 24.
+
+78  wbitmap-no-fill                              value 1.
+78  wbitmap-no-download                          value 2.
+
+01  wbitmap-lsf-data.
+    03 wbitmap-lsf-element                       occurs dynamic.
+       05 wbitmap-lsf-font                       handle of font.
+       05 wbitmap-lsf-characters                 pic n any length.
+       05 wbitmap-lsf-color                      pic s9(18) comp-4.
+
+01 wbitmap-tb-data.
+    03 wbitmap-tb-shape                          pic 9.
+       88 wbitmap-tb-circle                      value 0.
+       88 wbitmap-tb-square                      value 1.
+    03 wbitmap-tb-font                           handle of font.
+    03 wbitmap-tb-width                          pic s9(9) comp-4.
+    03 wbitmap-tb-text-color                     pic s9(18) comp-4.
+    03 wbitmap-tb-bg-color                       pic s9(18) comp-4.
+    03 wbitmap-tb-grd-or                         pic s9 comp-4 value -1.
+    03 wbitmap-tb-bg-color-2                     pic s9(18) comp-4.
+    
+01 wbitmap-bb-data.
+   03 wbitmap-bb-width                           pic s9(9) comp-4.  
+   03 wbitmap-bb-height                          pic s9(9) comp-4. 
+   03 wbitmap-bb-type                            pic 9(2) comp-4.
+      88 wbitmap-codabar                         value 1.
+      88 wbitmap-code128                         value 2.
+      88 wbitmap-code39                          value 3.
+      88 wbitmap-datamatrix                      value 4.
+      88 wbitmap-royalmailcbc                    value 5.
+      88 wbitmap-uspsintelligentmail             value 6.
+      88 wbitmap-postnet                         value 7.
+      88 wbitmap-interleaved2of5                 value 8.
+      88 wbitmap-itf14                           value 9.
+      88 wbitmap-pdf417                          value 10.
+      88 wbitmap-ean128                          value 11.
+      88 wbitmap-ean13                           value 12.
+      88 wbitmap-ean8                            value 13.
+      88 wbitmap-upca                            value 14.
+      88 wbitmap-upce                            value 15.
+      88 wbitmap-qrcode                          value 16.      
+   03 wbitmap-bb-dpi                             pic 9(4) comp-4 value 0.
+   03 wbitmap-bb-orientation                     pic 9 value 0.
+      88 wbitmap-or-horizontal                   value 0.
+      88 wbitmap-or-vertical                     value 1.
+   03 wbitmap-bb-antialiasing pic 9              value 0.
+      88 wbitmap-aa-off                          value 0.
+      88 wbitmap-aa-on                           value 1.
+   03 wbitmap-bb-text-position                   pic 9 value 0.
+      88 wbitmap-tp-none                         value 0.
+      88 wbitmap-tp-bottom                       value 1.
+      88 wbitmap-tp-top                          value 2.
+   03 wbitmap-bb-custom-color                    pic 9 value 0.
+      88 wbitmap-use-custom-color                value 1, false zero.
+   03 wbitmap-bb-fg-color                        pic s9(18) comp-4.
+   03 wbitmap-bb-bg-color                        pic s9(18) comp-4.
+   03 wbitmap-bb-logo-image                      pic s9(9) comp-4.
+
+78  wscale-stretch                               value 0.
+78  wscale-resize-xy                             value 1.
+78  wscale-resize-x                              value 2.
+78  wscale-resize-y                              value 3.
+78  wscale-resize-none                           value 4.
+
+78  wscale-al-bottom-left                        value 1.
+78  wscale-al-bottom-center                      value 2.
+78  wscale-al-bottom-right                       value 3.
+78  wscale-al-middle-left                        value 4.
+78  wscale-al-middle-center                      value 5.
+78  wscale-al-middle-right                       value 6.
+78  wscale-al-top-left                           value 7.
+78  wscale-al-top-center                         value 8.
+78  wscale-al-top-right                          value 9.
+
+78  wberr-unsupported                            value 0.
+78  wberr-file-error                             value -1.
+78  wberr-no-memory                              value -2.
+78  wberr-not-bitmap                             value -3.
+78  wberr-format-unsupported                     value -4.
+78  wberr-missing-dll                            value -5.
+
+78  wmenu-new                                    value 1.
+78  wmenu-destroy                                value 2.
+78  wmenu-add                                    value 3.
+78  wmenu-change                                 value 4.
+78  wmenu-delete                                 value 5.
+78  wmenu-check                                  value 6.
+78  wmenu-uncheck                                value 7.
+78  wmenu-enable                                 value 8.
+78  wmenu-disable                                value 9.
+78  wmenu-show                                   value 10.
+78  wmenu-get-menu                               value 11.
+78  wmenu-input                                  value 12.
+78  wmenu-block                                  value 13.
+78  wmenu-unblock                                value 14.
+78  wmenu-get-block                              value 15.
+78  wmenu-set-block                              value 16.
+78  wmenu-release                                value 17.
+78  wmenu-refresh                                value 20.
+78  wmenu-destroy-delayed                        value 21.
+78  wmenu-get-delayed-flag                       value 22.
+78  wmenu-set-delayed-flag                       value 23.
+78  wmenu-new-popup                              value 26.
+78  wmenu-popup                                  value 27.
+78  wmenu-add-bitmap                             value 28.
+78  wmenu-change-bitmap                          value 29.
+78  wmenu-delete-bitmap                          value 30.
+78  wmenu-ensure-visible                         value 31.
+78  wmenu-new-tray                               value 32.
+78  wmenu-new-hamburger                          value 33.
+78  wmenu-set-attribute                          value 34.
+
+78  w-unchecked                                  value 0.
+78  w-checked                                    value 1.
+78  w-enabled                                    value 0.
+78  w-disabled                                   value 16.
+78  w-separator                                  value 256.
+
+77  menu-handle                                  pic s9(9) comp-4.
+77  sub-handle-1                                 pic s9(9) comp-4.
+77  sub-handle-2                                 pic s9(9) comp-4.
+77  sub-handle-3                                 pic s9(9) comp-4.
+77  sub-handle-4                                 pic s9(9) comp-4.
+
+78  test-mouse-presence                          value 0.
+78  get-mouse-status                             value 1.
+78  get-mouse-screen-status                      value 2.
+78  set-mouse-position                           value 3.
+78  set-mouse-screen-position                    value 4.
+78  set-mouse-shape                              value 5.
+78  set-delayed-mouse-shape                      value 6.
+78  get-mouse-shape                              value 7.
+78  capture-mouse                                value 8.
+78  release-mouse                                value 9.
+78  enable-mouse                                 value 10.
+78  set-mouse-help                               value 19.
+
+78  arrow-pointer                                value 1.
+78  bar-pointer                                  value 2.
+78  cross-pointer                                value 3.
+78  wait-pointer                                 value 4.
+78  help-pointer                                 value 5.
+78  custom-pointer                               value 9.
+
+78  auto-mouse-handling                          value 1.
+78  allow-left-down                              value 2.
+78  allow-left-up                                value 4.
+78  allow-left-double                            value 8.
+78  allow-middle-down                            value 16.
+78  allow-middle-up                              value 32.
+78  allow-middle-double                          value 64.
+78  allow-right-down                             value 128.
+78  allow-right-up                               value 256.
+78  allow-right-double                           value 512.
+78  allow-mouse-move                             value 1024.
+78  always-arrow-cursor                          value 2048.
+78  allow-all-screen-actions                     value 16384.
+
+01  textsize-data.
+    03  textsize-font                            handle of font value null.
+    03  textsize-window                          handle of window value null.
+    03  textsize-size-x                          pic 9(7)v99 comp-4.
+    03  textsize-cells-x                         pic 9(7)v99 comp-4.
+    03  textsize-base-x                          pic 9(9) comp-4.
+    03  textsize-size-y                          pic 99v99 comp-4.
+    03  textsize-cells-y                         pic 99v99 comp-4.
+    03  textsize-base-y                          pic 9(4) comp-4.
+    03  textsize-flags                           pic x comp-x value zero.
+        88  textsize-strip-spaces                value 1 false zero.
+                                      
+78  event-action-normal                          value zero.
+78  event-action-terminate                       value 1.
+78  event-action-continue                        value 2.
+78  event-action-ignore                          value 3.
+78  event-action-fail                            value 4.
+78  event-action-complete                        value 5.
+78  event-action-fail-terminate                  value 7.
+
+78  w-terminate                                  value 91.
+78  w-message                                    value 95.
+78  w-event                                      value 96.
+78  w-no-fields                                  value 97.
+78  w-conversion-error                           value 98.
+78  w-timeout                                    value 99.
+
+78  cmd-close                                    value 1.
+78  cmd-goto                                     value 3.
+78  cmd-clicked                                  value 4.
+78  cmd-dblclick                                 value 5.
+78  cmd-activate                                 value 6.
+78  cmd-tabchanged                               value 7.
+78  cmd-help                                     value 8.
+78  cmd-help-mouse                               value 19.
+
+78  ntf-selchange                                value 4099.
+78  ntf-changed                                  value 4100. 
+78  ntf-pl-next                                  value 4101.
+78  ntf-pl-prev                                  value 4102.
+78  ntf-pl-nextpage                              value 4103.
+78  ntf-pl-prevpage                              value 4104.
+78  ntf-pl-first                                 value 4105.
+78  ntf-pl-last                                  value 4106.
+78  ntf-pl-search                                value 4107.
+78  ntf-resized                                  value 4114.
+
+78  ntf-iwc-event                                value 17041.
+78  ntf-sp-resized                               value 17042.
+
+78  msg-sb-thumb                                 value 16389.
+78  msg-sl-thumb                                 value 17001.
+78  msg-validate                                 value 16391.
+78  msg-begin-entry                              value 16392.
+78  msg-finish-entry                             value 16393.
+78  msg-cancel-entry                             value 16394.
+78  msg-goto-cell                                value 16395.
+78  msg-goto-cell-mouse                          value 16396.
+78  msg-menu-input                               value 16397.
+78  msg-init-menu                                value 16398.
+78  msg-end-menu                                 value 16399.
+78  msg-bitmap-clicked                           value 16400.
+78  msg-bitmap-dblclick                          value 16401.
+78  msg-heading-clicked                          value 16402.
+78  msg-heading-dblclick                         value 16403.
+78  msg-goto-cell-drag                           value 16404.
+78  msg-heading-dragged                          value 16405.
+78  msg-begin-drag                               value 16406.
+78  msg-end-drag                                 value 16407.
+78  msg-begin-heading-drag                       value 16408.
+78  msg-end-heading-drag                         value 16409.
+78  msg-col-width-changed                        value 16410.
+78  msg-tv-selchanging                           value 16411.
+78  msg-tv-selchange                             value 16412.
+78  msg-tv-expanding                             value 16413.
+78  msg-tv-expanded                              value 16414.
+78  msg-close                                    value 16415.
+78  msg-spin-up                                  value 16416.
+78  msg-spin-down                                value 16417.
+78  msg-paged-next                               value 16419.
+78  msg-paged-prev                               value 16420.
+78  msg-paged-nextpage                           value 16421.
+78  msg-paged-prevpage                           value 16422.
+78  msg-paged-first                              value 16423.
+78  msg-paged-last                               value 16424.
+78  msg-grid-rbutton-down                        value 16426.
+78  msg-grid-rbutton-up                          value 16427.
+78  msg-tv-dblclick                              value 16428.
+78  msg-wb-before-navigate                       value 16429.
+78  msg-wb-navigate-complete                     value 16430.
+78  msg-wb-download-begin                        value 16431.
+78  msg-wb-download-complete                     value 16432.
+78  msg-wb-progress-change                       value 16433.
+78  msg-wb-status-text-change                    value 16434.
+78  msg-wb-title-change                          value 16435.
+78  msg-ax-event                                 value 16436.
+78  msg-begin-sort                               value 16437.
+78  msg-row-height-changed                       value 16438.
+78  msg-goto-cell-out-prev                       value 16439.
+78  msg-goto-cell-out-next                       value 16440.
+78  msg-tv-selchange-out-prev                    value 16441.
+78  msg-tv-selchange-out-next                    value 16442.
+78  msg-begin-heading-menu-popup                 value 16443.
+78  msg-heading-menu-popup                       value 16444.
+78  msg-jb-event                                 value 17011.
+78  msg-mouse-clicked                            value 17021.
+78  msg-mouse-dblclick                           value 17022.
+78  msg-mouse-enter                              value 17023.
+78  msg-mouse-exit                               value 17024.
+78  msg-st-dblclick                              value 17031.
+78  msg-iconified                                value 17032.
+78  msg-deiconified                              value 17033.
+78  msg-finish-sort                              value 17034.
+78  msg-gd-dblclick                              value 17035.
+78  msg-finish-filter                            value 17036.
+78  msg-drag                                     value 17042.
+78  msg-drop                                     value 17043.
+78  msg-load-on-demand                           value 17044.
+
+78  action-cut                                   value 1.
+78  action-copy                                  value 2.
+78  action-paste                                 value 3.
+78  action-delete                                value 4.
+78  action-undo                                  value 5.
+78  action-redo                                  value 6.
+78  action-select-all                            value 7.
+78  action-search                                value 8.
+
+78  action-first-page                            value 10.
+78  action-last-page                             value 11.
+78  action-current-page                          value 12.
+78  action-hide-drag                             value 13.
+78  action-previous                              value 14.
+78  action-previous-page                         value 15.
+78  action-next-page                             value 16.
+78  action-next                                  value 17.
+78  action-entry                                 value 30.
+78  action-sort                                  value 32.
+78  action-export                                value 33.
+
+78  action-minimize                              value 20.
+78  action-maximize                              value 21.
+78  action-restore                               value 22.
+78  action-maximize-postponed                    value 23.
+
+78  paged-at-start                               value 2147418113.
+78  paged-at-end                                 value 2147418114.
+78  paged-empty                                  value 2147418115.
+
+01  grid-search-options                          value all zeros.
+    03  grid-search-direction                    pic 9.
+        88  grid-search-forwards                 value zero false 1.
+    03  grid-search-wrap-flag                    pic 9.
+        88  grid-search-wrap                     value zero false 1.
+    03  grid-search-case-flag                    pic 9.
+        88  grid-search-ignore-case              value zero false 1.
+    03  grid-search-match-flag                   pic 9.
+        88  grid-search-match-any                value zero.
+        88  grid-search-match-leading            value 1.
+        88  grid-search-match-all                value 2.
+    03  grid-search-location-flag                pic 9.
+        88  grid-search-visible                  value zero.
+        88  grid-search-hidden                   value 1.
+        88  grid-search-all-data                 value 2.
+    03  grid-search-skip-flag                    pic 9.
+        88  grid-search-skip-current             value zero false 1.
+    03  grid-search-cursor-flag                  pic 9.
+        88  grid-search-moves-cursor             value zero false 1.
+    03  grid-search-column                       pic 9(5).
+        88  grid-search-all-columns              value zero.
+
+78  grdsrch-not-found                            value 0.
+78  grdsrch-found                                value 1.
+78  grdsrch-wrapped                              value 2.
+
+78  grer-enter                                   value x"0D".
+78  grer-dblclick                                value x"00".
+78  grer-del                                     value x"01".
+78  grer-entry-by-program                        value x"FF".
+
+78  grfr-blank-past-end                          value -1.
+78  grfr-terminating                             value -2.
+78  grfr-cell-clicked                            value -3.
+78  grfr-navigation-key                          value -4.
+78  grfr-escape-key                              value -5.
+78  grfr-enter-key                               value -6.
+78  grfr-tab-key                                 value -7.
+78  grfr-autoterminate                           value -8.
+78  grfr-page-up-key                             value -9.
+78  grfr-page-down-key                           value -10.
+78  grfr-shift-tab-key                           value -11.
+78  grfr-arrow-up-key                            value -12.
+78  grfr-arrow-down-key                          value -13.
+78  grfr-arrow-left-key                          value -14.
+78  grfr-arrow-right-key                         value -15.
+
+78  grhm-no-menu                                 value 0.
+78  grhm-columns-on-right-click                  value 1.
+78  grhm-columns-on-button                       value 2.
+78  grhm-export-on-right-click                   value 4.
+78  grhm-export-on-button                        value 8.
+78  grhm-copy-on-right-click                     value 16.
+78  grhm-copy-on-button                          value 32.
+78  grhm-find-on-right-click                     value 64.
+78  grhm-find-on-button                          value 128.
+
+78  grsm-no-selection                            value  0.
+78  grsm-single-selection                        value  1.
+78  grsm-single-interval-selection               value  2.
+78  grsm-multiple-interval-selection             value  4.
+78  grsm-row-selection                           value  8.
+78  grsm-column-selection                        value 16.
+78  grsm-cell-selection                          value 32.
+
+78  lssm-single-selection                        value  1.
+78  lssm-single-interval-selection               value  2.
+78  lssm-multiple-interval-selection             value  4.
+
+78  tvsm-single-selection                        value  1.
+78  tvsm-single-interval-selection               value  2.
+78  tvsm-multiple-interval-selection             value  4.
+
+78  grchl-horizontal                             value  0.
+78  grchl-vertical-left                          value  1.
+78  grchl-vertical-right                         value  2.
+78  grchl-align-center                           value  4.
+78  grchl-align-left                             value  8.
+78  grchl-align-right                            value 16.
+78  grchl-align-top                              value 32.
+78  grchl-align-bottom                           value 64.
+
+78  tvplace-first                                value 4294901761.
+78  tvplace-last                                 value 0.
+78  tvplace-sort                                 value 4294901763.
+
+78  tvni-child                                   value 1.
+78  tvni-first-visible                           value 2.
+78  tvni-next                                    value 3.
+78  tvni-next-visible                            value 4.
+78  tvni-parent                                  value 5.
+78  tvni-previous                                value 6.
+78  tvni-previous-visible                        value 7.
+78  tvni-root                                    value 8.
+
+78  tvflag-collapse                              value 1.
+78  tvflag-expand                                value 2.
+78  tvflag-expand-all                            value 3.
+78  tvflag-program                               value zero.
+78  tvflag-mouse                                 value 1.
+78  tvflag-keyboard                              value 2.
+78  tvflag-normal                                value 1.
+78  tvflag-bold                                  value 2.
+
+78  tvhm-no-menu                                 value 0.
+78  tvhm-columns-on-right-click                  value 1.
+78  tvhm-columns-on-button                       value 2.
+
+78  pl-sort-default                              value 0.
+78  pl-sort-none                                 value 1.
+78  pl-sort-native                               value 2.
+78  pl-sort-native-ignore-case                   value 3.
+
+78  handle-is-invalid                            value 0.
+78  handle-of-window                             value 1.
+78  handle-of-subwindow                          value 2.
+78  handle-of-font                               value 3.
+78  handle-of-thread                             value 4.
+78  handle-of-menu                               value 5.
+78  handle-of-control                            value 6.
+78  handle-of-bitmap                             value 7.
+78  handle-is-unknown                            value 9.
+
+78  panel-flat                                   value 0.
+78  panel-lowered                                value 1.
+78  panel-raised                                 value 2.
+
+78  grd-prt-readonly                             value 1.
+78  grd-prt-jump                                 value 2.
+
+78  davf-yyyymmdd                                value 0.
+78  davf-yymmdd                                  value 1.
+78  davf-hhmmsshh                                value 2.
+78  davf-hhmmss                                  value 3.
+78  davf-yyyymmddhhmmsshh                        value 4.
+78  davf-mmddyyyy                                value 5.
+78  davf-mmddyy                                  value 6.
+78  davf-mmddyyyyhhmmsshh                        value 7.
+78  davf-ddmmyyyy                                value 8.
+78  davf-ddmmyy                                  value 9.
+78  davf-ddmmyyyyhhmmsshh                        value 10.
+78  davf-hhmm                                    value 11.
+
+78  bm-corner-color                              value x#1000000.
+
+78  snd-sync                                     value 0.
+78  snd-async                                    value 1.
+78  snd-loop                                     value 8.
+78  snd-nostop                                   value 16.
+
+01 mouse-info.
+   03  mouse-row                                 pic xx comp-x.
+       88 mouse-off-screen                       value zero.   
+   03  mouse-col                                 pic xx comp-x.
+   03  lbutton-status                            pic 9.
+       88 lbutton-down                           value 1.
+   03  mbutton-status                            pic 9.
+       88 mbutton-down                           value 1.
+   03  rbutton-status                            pic 9.
+       88 rbutton-down                           value 1.
+   03  mouse-row-ex                              pic 9(6)v99 comp-4 sync.
+   03  mouse-col-ex                              pic 9(6)v99 comp-4.
+   03  mouse-row-pixel                           pic 9(8) comp-4.
+   03  mouse-col-pixel                           pic 9(8) comp-4.
+   
+78  wprogressdialog-create                       value 1.
+78  wprogressdialog-destroy                      value 2.
+78  wprogressdialog-set-progress                 value 3.
+78  wprogressdialog-query-cancel                 value 4.
+78  wprogressdialog-set-line                     value 5.
+78  wprogressdialog-reset-timer                  value 6.
+78  wprogressdialog-c-copy                       value 7.
+
+78  wprogressdialog-normal                       value 0. 
+78  wprogressdialog-modal                        value 1. 
+78  wprogressdialog-autotime                     value 2.      
+78  wprogressdialog-notime                       value 4. 
+78  wprogressdialog-nominimize                   value 8. 
+78  wprogressdialog-noprogressbar                value 16.
+
+78  cdesktop-browse                              value 1.
+78  cdesktop-edit                                value 2.
+78  cdesktop-mail                                value 3.
+78  cdesktop-open                                value 4.
+78  cdesktop-print                               value 5.
+
+78  gradient-north-to-south                      value 0. |default if the property is omitted
+78  gradient-northeast-to-southwest              value 1.
+78  gradient-east-to-west                        value 2.
+78  gradient-southeast-to-northwest              value 3.
+78  gradient-south-to-north                      value 4.
+78  gradient-southwest-to-northeast              value 5.
+78  gradient-west-to-east                        value 6.
+78  gradient-northwest-to-southeast              value 7.
+
+78  win-normal                                   value 0. |default if the property is omitted
+78  win-iconified                                value 1.
+78  win-maximized-horiz                          value 2.
+78  win-maximized-vert                           value 4.
+78  win-maximized-both                           value 6.
+
+78  grlod-arrow-down-key                         value 1.
+78  grlod-page-down-key                          value 2.
+78  grlod-ctrl-end-key                           value 3.
+78  grlod-scroll-bar-drag                        value 4.
+78  grlod-tab-key                                value 5.
+
+78  iwc-it-none                                  value 0.
+78  iwc-it-decimal                               value 1.
+78  iwc-it-email                                 value 2.
+78  iwc-it-numeric                               value 3.
+78  iwc-it-search                                value 4.
+78  iwc-it-tel                                   value 5.
+78  iwc-it-text                                  value 6.
+78  iwc-it-url                                   value 7.
+       >>SOURCE FORMAT PREVIOUS

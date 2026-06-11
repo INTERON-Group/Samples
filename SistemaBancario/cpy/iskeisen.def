@@ -1,0 +1,30 @@
+*>********************************************************************<*
+*>***** Copyright (c) 2005 - 2026 Veryant. Users of isCOBOL      *****<*
+*>***** may freely modify and redistribute this program.         *****<*
+*>********************************************************************<*
+
+       >>SOURCE FORMAT FREE
+
+01  keisen.
+    02  kei-cmd           pic 9(1) comp-x.
+    02  kei-line          pic 9(2) comp-x.
+    02  kei-col           pic 9(2) comp-x.
+    02  kei-lng1          pic 9(2) comp-x.
+    02  kei-lng2          pic 9(2) comp-x.
+    02  kei-color         pic 9(2) comp-x.
+    02  kei-ptn           pic 9(2) comp-x.
+
+01  keisen2.
+    02  kei2-cmd          pic 9(1) comp-x.
+    02  kei2-start-line   pic 9(2) comp-x.
+    02  kei2-start-col    pic 9(2) comp-x.
+    02  kei2-end-line     pic 9(2) comp-x.
+    02  kei2-end-col      pic 9(2) comp-x.
+    02  kei2-prn          pic 9(2) comp-x.
+    02  kei2-color        pic 9(2) comp-x.
+
+78  kei-method1 value 1.
+78  kei-method2 value 2.
+01  kei-param pic 9(1) comp-x value kei-method1.
+
+       >>SOURCE FORMAT PREVIOUS
