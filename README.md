@@ -47,9 +47,9 @@ Extrato exibido em janela gráfica flutuante (DISPLAY WINDOW) com histórico de 
 Listagem de todas as contas cadastradas com saldo atual
 
 **Como executar:**
-Importe o projeto na IDE Veryant (File → Import → Existing Projects)
-Compile com Ctrl+B
-Execute via Run → Run Configurations → isCOBOL Application
+1. Importe o projeto na IDE Veryant (File → Import → Existing Projects)
+2. Compile com Ctrl+B
+3. Execute via Run → Run Configurations → isCOBOL Application
 
 ---
 
