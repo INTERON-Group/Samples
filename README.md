@@ -32,6 +32,27 @@ Demonstra: tabela interna com OCCURS e INDEXED BY, busca linear com SEARCH, SET 
 
 ---
 
+### sistema-bancario
+
+Sistema bancário simplificado de console com interface gráfica nativa isCOBOL.
+Demonstra: tabelas internas com OCCURS aninhado (contas e histórico), PERFORM VARYING com índice auxiliar para busca segura, EVALUATE para menu, aritmética monetária com DECIMAL-POINT IS COMMA, DISPLAY WINDOW para janela gráfica flutuante no extrato, controle de buffer de entrada com campo PIC X(80), GO TO para saída antecipada de parágrafos e REGISTRAR-MOVIMENTO como parágrafo reutilizável.
+
+**Funcionalidades:**
+Criação de conta com número gerado automaticamente, nome, CPF e saldo inicial
+Consulta de conta por número com exibição de dados completos
+Depósito com validação de valor e atualização de saldo
+Saque com validação de saldo suficiente
+Transferência entre contas com validação de origem, destino e saldo
+Extrato exibido em janela gráfica flutuante (DISPLAY WINDOW) com histórico de movimentações
+Listagem de todas as contas cadastradas com saldo atual
+
+**Como executar:**
+Importe o projeto na IDE Veryant (File → Import → Existing Projects)
+Compile com Ctrl+B
+Execute via Run → Run Configurations → isCOBOL Application
+
+---
+
 ### Autor 👤
 Feito por **INTERON GROUP**
 📧 Contato: github@interongroup.com
