@@ -4,7 +4,7 @@ Coleção de programas educacionais escritos em isCOBOL (Veryant).
 
 ## Projetos
 
-### calculadora-cobol
+### CALCULADORA-COBOL
 Calculadora de console com menu interativo.
 Demonstra: variáveis, ACCEPT/DISPLAY, EVALUATE, COMPUTE e suporte a números negativos.
 
@@ -15,7 +15,7 @@ Demonstra: variáveis, ACCEPT/DISPLAY, EVALUATE, COMPUTE e suporte a números ne
 
 ---
 
-### estoque-produtos
+### ESTOQUE-PRODUTOS
 Sistema de controle de estoque de console com menu interativo.
 Demonstra: tabela interna com OCCURS e INDEXED BY, busca linear com SEARCH, SET para manipulação de index, nível 88 para flags semânticos, EVALUATE, PERFORM VARYING, ADD/SUBTRACT/COMPUTE, formatação monetária com PICTURE e validação de entradas.
 
@@ -32,7 +32,7 @@ Demonstra: tabela interna com OCCURS e INDEXED BY, busca linear com SEARCH, SET 
 
 ---
 
-### sistema-bancario
+### SISTEMA-BANCARIO
 
 Sistema bancário simplificado de console com interface gráfica nativa isCOBOL.
 Demonstra: tabelas internas com OCCURS aninhado (contas e histórico), PERFORM VARYING com índice auxiliar para busca segura, EVALUATE para menu, aritmética monetária com DECIMAL-POINT IS COMMA, DISPLAY WINDOW para janela gráfica flutuante no extrato, controle de buffer de entrada com campo PIC X(80), GO TO para saída antecipada de parágrafos e REGISTRAR-MOVIMENTO como parágrafo reutilizável.
